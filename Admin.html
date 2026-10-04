@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADMIN - La Pizza de Nico - Gestion Prix</title>
+<style>
+*{box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif}
+body{margin:0;background:#f5f5f5;padding:20px}
+.card{background:white;border-radius:20px;padding:20px;margin-bottom:16px;border:1px solid #e5e5e5}
+input{border:2px solid #e5e5e5;border-radius:9999px;padding:8px 12px;font-weight:800;width:90px}
+.btn{border:none;border-radius:9999px;padding:12px 20px;font-weight:900;cursor:pointer}
+.btn-green{background:#2E7D32;color:white}
+.btn-yellow{background:#FBC02D;color:#111}
+.btn-red{background:#D32F2F;color:white}
+.grid-pizza{display:grid;grid-template-columns:1fr 90px 90px;gap:8px;align-items:center;padding:8px;border:1px solid #eee;border-radius:12px;margin-bottom:6px}
+</style>
+</head>
+<body>
+<h1 style="font-weight:900">⚙️ ADMIN - Gestion des Prix</h1>
+<div style="background:#D32F2F;color:white;padding:12px;border-radius:12px;font-weight:800;margin-bottom:16px">Cette page modifie les prix sur le site principal via localStorage. Après sauvegarde, ouvrez le site normal pour voir les nouveaux prix.</div>
+
+<div class="card">
+<h3>🚚 Livraison par pizza</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<div>Bischwiller 67240: <input id="bisch" type="number" step="0.5" value="2"> €/pizza</div>
+<div>Hors Bischwiller: <input id="outside" type="number" step="0.5" value="3"> €/pizza</div>
+</div>
+</div>
+
+<div class="card">
+<h3>🍕 Pizzas - 39 recettes</h3>
+<div id="pizzas-list">Chargement...</div>
+</div>
+
+<div class="card">
+<h3>🥤 Boissons</h3>
+<div id="drinks-list"></div>
+</div>
+
+<div class="card">
+<h3>🍰 Desserts</h3>
+<div id="desserts-list"></div>
+</div>
+
+<div style="position:sticky;bottom:0;background:white;padding:16px;border-radius:20px;border:2px solid #111;display:flex;gap:8px;margin-top:20px">
+<button class="btn btn-green" onclick="saveAll()" style="flex:1">💾 Sauvegarder - Les prix seront appliqués sur pizzanico.github.io/pizzadenico</button>
+<button class="btn" onclick="resetAll()" style="background:white;border:2px solid #e5e5e5">Reset</button>
+</div>
+
+<script>
+const defaultPizzas = [
+{id:1,name:"Napolitaine",solo:9.5,maxi:13.5},{id:2,name:"Tuna",solo:9.5,maxi:13.5},{id:3,name:"Paysanne",solo:9.5,maxi:13.5},{id:4,name:"Reine",solo:9.5,maxi:13.5},{id:5,name:"Végétarienne",solo:10,maxi:13.5},
+{id:6,name:"Bisch",solo:9.5,maxi:13.5},{id:7,name:"Marguerite",solo:9.5,maxi:13.5},{id:8,name:"Exotique",solo:9.5,maxi:13.5},{id:9,name:"Hawaïenne",solo:9.5,maxi:13.5},{id:10,name:"Pêcheur",solo:10,maxi:14},
+{id:11,name:"4 Fromages",solo:10,maxi:14},{id:12,name:"Chorizo",solo:9.5,maxi:13.5},{id:13,name:"Calzone",solo:10,maxi:14},{id:14,name:"Raclette",solo:10,maxi:14},{id:15,name:"Fermière",solo:10,maxi:14},
+{id:16,name:"Chèvre Miel",solo:10,maxi:14},{id:17,name:"Kebab",solo:10,maxi:14},{id:18,name:"Poulet",solo:10,maxi:14},{id:19,name:"Orientale",solo:10,maxi:14},{id:20,name:"Américaine",solo:10,maxi:14},
+{id:21,name:"Forestière Crème",solo:10,maxi:13.5},{id:22,name:"Tartiflette",solo:10.5,maxi:14.5},{id:23,name:"Montagnarde",solo:10.5,maxi:14.5},{id:24,name:"Savoyarde",solo:10.5,maxi:14.5},{id:25,name:"Burger",solo:10.5,maxi:14.5},
+{id:26,name:"Alsacienne",solo:7.5,maxi:9.5},{id:27,name:"Gratinée",solo:8.5,maxi:11.5},{id:28,name:"Forestière",solo:10,maxi:13.5},{id:29,name:"Norvégienne",solo:10,maxi:14},{id:30,name:"Biquette",solo:10.5,maxi:14},
+{id:31,name:"Munster",solo:10.5,maxi:14.5},{id:32,name:"Royale",solo:10.5,maxi:14.5},{id:33,name:"Mare",solo:10.5,maxi:14.5},{id:34,name:"Paysanne Crème",solo:10,maxi:13.5},{id:35,name:"Champêtre",solo:10,maxi:14},
+{id:36,name:"Indienne",solo:10,maxi:14},{id:37,name:"Viking",solo:10.5,maxi:14.5},{id:38,name:"Campagnarde",solo:10,maxi:14},{id:39,name:"Capricciosa",solo:10,maxi:14}
+];
+const drinks = ["Coca-Cola 33cl","Coca Zéro 33cl","Coca Cherry 33cl","Fanta Orange 33cl","Sprite 33cl","Lipton Ice Tea 33cl","Oasis Tropical 33cl","Carola 50cl","Kronenbourg 25cl","Lambrusco Rouge 75cl","Vin Rouge 75cl","Vin Rosé 75cl"];
+const desserts = ["Tiramisu Choc/Noisette/Speculoos","Tiramisu Caramel/Speculoos","Tiramisu Cookies Cream","Ben & Jerry's Cookie Dough 100ml","Ben & Jerry's Chocolate Fudge Brownie 100ml","Ben & Jerry's Half Baked 100ml"];
+
+function load(){
+  const ov = JSON.parse(localStorage.getItem('nico_price_overrides')||'{}');
+  document.getElementById('bisch').value = ov.deliveryFee?.bisch ?? 2;
+  document.getElementById('outside').value = ov.deliveryFee?.outside ?? 3;
+  
+  let html='';
+  html+='<div class="grid-pizza" style="background:#f5f5f5;font-weight:800"><div>Pizza</div><div>SOLO</div><div>MAXI</div></div>';
+  defaultPizzas.forEach(p=>{
+    const ovp = ov.pizzas?.[p.id] || {};
+    html+=`<div class="grid-pizza"><div>#${p.id} ${p.name}</div><input data-pid="${p.id}" data-type="solo" type="number" step="0.1" value="${ovp.solo ?? p.solo}"><input data-pid="${p.id}" data-type="maxi" type="number" step="0.1" value="${ovp.maxi ?? p.maxi}"></div>`;
+  });
+  document.getElementById('pizzas-list').innerHTML=html;
+  
+  let htmlD='';
+  drinks.forEach(name=>{
+    const price = ov.drinks?.[name] ?? (name.includes('75cl')?7.9:2.5);
+    htmlD+=`<div style="display:flex;justify-content:space-between;padding:6px;border-bottom:1px solid #eee"><div>${name}</div><input data-drink="${name}" type="number" step="0.1" value="${price}"></div>`;
+  });
+  document.getElementById('drinks-list').innerHTML=htmlD;
+  
+  let htmlDes='';
+  desserts.forEach(name=>{
+    const price = ov.desserts?.[name] ?? (name.includes('Tiramisu')?4.7:9.9);
+    htmlDes+=`<div style="display:flex;justify-content:space-between;padding:6px;border-bottom:1px solid #eee"><div>${name}</div><input data-dessert="${name}" type="number" step="0.1" value="${price}"></div>`;
+  });
+  document.getElementById('desserts-list').innerHTML=htmlDes;
+}
+
+function saveAll(){
+  const ov = {pizzas:{},drinks:{},desserts:{},deliveryFee:{}};
+  document.querySelectorAll('[data-pid]').forEach(inp=>{
+    const id=inp.dataset.pid; const type=inp.dataset.type;
+    if(!ov.pizzas[id]) ov.pizzas[id]={};
+    ov.pizzas[id][type]=parseFloat(inp.value);
+  });
+  document.querySelectorAll('[data-drink]').forEach(inp=>{
+    ov.drinks[inp.dataset.drink]=parseFloat(inp.value);
+  });
+  document.querySelectorAll('[data-dessert]').forEach(inp=>{
+    ov.desserts[inp.dataset.dessert]=parseFloat(inp.value);
+  });
+  ov.deliveryFee.bisch=parseFloat(document.getElementById('bisch').value);
+  ov.deliveryFee.outside=parseFloat(document.getElementById('outside').value);
+  localStorage.setItem('nico_price_overrides', JSON.stringify(ov));
+  localStorage.setItem('nico_admin_enabled','1');
+  alert('✅ Sauvegardé! Maintenant ouvre https://pizzanico.github.io/pizzadenico/ - tu verras les nouveaux prix. Pour GitHub, exporte JSON et envoie-le moi pour générer nouvel index.html');
+  window.open('https://pizzanico.github.io/pizzadenico/', '_blank');
+}
+
+function resetAll(){
+  if(confirm('Reset?')){ localStorage.removeItem('nico_price_overrides'); load(); }
+}
+
+load();
+</script>
+</body>
+</html>
