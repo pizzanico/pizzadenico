@@ -297,5 +297,212 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 
+
+<!-- KITCHEN SOUND SYSTEM - NEW ORDER ALERT -->
+<audio id="nico-kitchen-audio" preload="auto" style="display:none;">
+  <source src="data:audio/wav;base64,UklGRnoAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoAAACA" type="audio/wav">
+</audio>
+<div id="nico-kitchen-sound-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#D32F2F;color:white;padding:12px;text-align:center;font-weight:900;font-size:16px;animation: nicoBlink 1s infinite;">
+  🔔 NOUVELLE COMMANDE ! <button id="nico-stop-sound-btn" style="margin-left:16px;background:white;color:#D32F2F;border:none;border-radius:9999px;padding:6px 16px;font-weight:900;cursor:pointer;">✓ CONFIRMER & ARRÊTER SON</button>
+</div>
+<style>
+@keyframes nicoBlink { 0%,100%{opacity:1;} 50%{opacity:0.7;} }
+@keyframes nicoShake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-2px);} 75%{transform:translateX(2px);} }
+.nico-new-order { animation: nicoShake 0.5s infinite; border: 3px solid #D32F2F !important; }
+</style>
+
+<script>
+(function(){
+  var audioCtx=null;
+  var oscillator=null;
+  var gainNode=null;
+  var isPlaying=false;
+  var soundInterval=null;
+  var acknowledgedOrders=new Set(JSON.parse(localStorage.getItem('nico_acknowledged')||'[]'));
+
+  function initAudio(){
+    try{
+      if(!audioCtx){
+        audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+      }
+    }catch(e){console.log('Audio init failed',e);}
+  }
+
+  function playBeep(){
+    if(!audioCtx) initAudio();
+    if(!audioCtx) return;
+    try{
+      var osc=audioCtx.createOscillator();
+      var gain=audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.frequency.value=880;
+      osc.type='sine';
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+0.3);
+      osc.start(audioCtx.currentTime);
+      osc.stop(audioCtx.currentTime+0.3);
+    }catch(e){}
+  }
+
+  function playDoubleBeep(){
+    playBeep();
+    setTimeout(playBeep, 400);
+  }
+
+  function startSound(){
+    if(isPlaying) return;
+    if(!isKitchenPage()) return;
+    initAudio();
+    isPlaying=true;
+    var banner=document.getElementById('nico-kitchen-sound-banner');
+    if(banner) banner.style.display='block';
+    // Play immediately
+    playDoubleBeep();
+    // Then every 2 seconds
+    soundInterval=setInterval(function(){
+      if(!isKitchenPage() || !hasNewUnacknowledgedOrders()){
+        stopSound();
+        return;
+      }
+      playDoubleBeep();
+      // Vibrate if available
+      if(navigator.vibrate) navigator.vibrate([200,100,200]);
+    }, 2000);
+    console.log('🔔 Kitchen sound STARTED - new order!');
+  }
+
+  function stopSound(){
+    if(!isPlaying) return;
+    isPlaying=false;
+    if(soundInterval){clearInterval(soundInterval);soundInterval=null;}
+    var banner=document.getElementById('nico-kitchen-sound-banner');
+    if(banner) banner.style.display='none';
+    console.log('🔕 Kitchen sound STOPPED');
+  }
+
+  function isKitchenPage(){
+    // ONLY URL check - not body innerHTML to avoid triggering on shop page
+    var url=window.location.href.toLowerCase();
+    return url.includes('cuisine') || window.location.search.toLowerCase().includes('cuisine') || window.location.hash.toLowerCase().includes('cuisine') || window.location.pathname.toLowerCase().includes('cuisine');
+  }
+
+  function hasNewUnacknowledgedOrders(){
+    try{
+      var orders=[];
+      try{orders=JSON.parse(localStorage.getItem('nico_orders_demo')||'[]');}catch(e){}
+      // Check for Nouveau orders not yet acknowledged
+      for(var i=0;i<orders.length;i++){
+        var ord=orders[i];
+        if(ord.status==='Nouveau' && !acknowledgedOrders.has(ord.id)){
+          return true;
+        }
+      }
+      return false;
+    }catch(e){return false;}
+  }
+
+  function getNewOrdersCount(){
+    try{
+      var orders=JSON.parse(localStorage.getItem('nico_orders_demo')||'[]');
+      var count=0;
+      for(var i=0;i<orders.length;i++){
+        if(orders[i].status==='Nouveau' && !acknowledgedOrders.has(orders[i].id)) count++;
+      }
+      return count;
+    }catch(e){return 0;}
+  }
+
+  function acknowledgeAllNew(){
+    try{
+      var orders=JSON.parse(localStorage.getItem('nico_orders_demo')||'[]');
+      for(var i=0;i<orders.length;i++){
+        if(orders[i].status==='Nouveau'){
+          acknowledgedOrders.add(orders[i].id);
+        }
+      }
+      localStorage.setItem('nico_acknowledged', JSON.stringify(Array.from(acknowledgedOrders)));
+      stopSound();
+      // Update banner
+      var banner=document.getElementById('nico-kitchen-sound-banner');
+      if(banner) banner.style.display='none';
+    }catch(e){}
+  }
+
+  // Check for new orders periodically
+  var lastOrdersCount=0;
+  try{lastOrdersCount=JSON.parse(localStorage.getItem('nico_orders_demo')||'[]').length;}catch(e){}
+
+  setInterval(function(){
+    if(!isKitchenPage()) return;
+    try{
+      var orders=JSON.parse(localStorage.getItem('nico_orders_demo')||'[]');
+      // Detect new order added
+      if(orders.length>lastOrdersCount){
+        var newOrders=orders.slice(lastOrdersCount);
+        for(var i=0;i<newOrders.length;i++){
+          if(newOrders[i].status==='Nouveau' && !acknowledgedOrders.has(newOrders[i].id)){
+            startSound();
+            break;
+          }
+        }
+        lastOrdersCount=orders.length;
+      }
+      // Also check if there are unacknowledged Nouveau
+      if(hasNewUnacknowledgedOrders()){
+        if(!isPlaying) startSound();
+      }else{
+        if(isPlaying) stopSound();
+      }
+      // Highlight new orders in DOM
+      var cards=document.querySelectorAll('.bg-white.rounded-\[20px\]');
+      for(var j=0;j<cards.length;j++){
+        var card=cards[j];
+        if(card.textContent.includes('Nouveau')){
+          // check if this order is unacknowledged
+          card.classList.add('nico-new-order');
+        }else{
+          card.classList.remove('nico-new-order');
+        }
+      }
+    }catch(e){}
+  }, 1000);
+
+  // Button to stop sound
+  document.addEventListener('click', function(e){
+    var target=e.target;
+    if(target.id==='nico-stop-sound-btn' || (target.closest && target.closest('#nico-stop-sound-btn'))){
+      acknowledgeAllNew();
+    }
+    // Also when clicking "En préparation" button, acknowledge that order
+    if(target.textContent && target.textContent.includes('En préparation')){
+      setTimeout(function(){
+        // Find order id from card - acknowledge
+        acknowledgeAllNew();
+        if(!hasNewUnacknowledgedOrders()) stopSound();
+      }, 500);
+    }
+  });
+
+  // Enable audio on first user interaction (browser autoplay policy)
+  document.addEventListener('click', function enableAudio(){
+    initAudio();
+    if(audioCtx && audioCtx.state==='suspended'){
+      audioCtx.resume();
+    }
+    document.removeEventListener('click', enableAudio);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.code==='Space' && isKitchenPage() && hasNewUnacknowledgedOrders()){
+      e.preventDefault();
+      acknowledgeAllNew();
+    }
+  });
+
+  console.log('🍕 Kitchen sound system loaded - will alert on new orders in ?cuisine page');
+})();
+</script>
+
 </body>
 </html>
