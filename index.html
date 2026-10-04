@@ -1038,243 +1038,119 @@ function nicoToast(msg, isFree){
 </script>
 
 
-<!-- NICO PHONE VERIFICATION - ANTI FAKE ORDERS -->
-<div id="nico-verify-modal" style="display:none;position:fixed;inset:0;z-index:200000;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:16px;">
-  <div style="background:white;border-radius:24px;width:100%;max-width:400px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+<!-- NICO SMS VERIFICATION - FIXED FINAL -->
+<div id="nico-sms-modal" style="display:none;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:16px;">
+  <div style="background:white;border-radius:24px;width:100%;max-width:420px;padding:24px;box-shadow:0 25px 70px rgba(0,0,0,0.6);">
     <div style="text-align:center;margin-bottom:20px;">
-      <div style="width:56px;height:56px;background:#D32F2F;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:28px;">📱</div>
-      <div style="font-weight:900;font-size:20px;">Vérifiez votre numéro</div>
-      <div style="font-size:13px;color:#666;margin-top:4px;">Pour éviter les fausses commandes, confirmez votre téléphone par SMS</div>
+      <div style="width:64px;height:64px;background:#D32F2F;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:28px;">📱</div>
+      <div style="font-weight:900;font-size:20px;">Vérification téléphone</div>
+      <div style="font-size:12px;color:#666;margin-top:4px;">Pour éviter les fausses commandes, confirmez votre numéro par SMS</div>
     </div>
-    
-    <div id="nico-verify-step1">
-      <div style="font-weight:700;font-size:13px;margin-bottom:8px;">Votre numéro de téléphone</div>
-      <div style="display:flex;gap:8px;">
-        <div style="background:#f5f5f5;border-radius:9999px;padding:10px 14px;font-weight:900;font-size:14px;border:2px solid #e5e5e5;">+33</div>
-        <input id="nico-verify-phone" type="tel" placeholder="6 12 34 56 78" style="flex:1;border:2px solid #111;border-radius:9999px;padding:10px 16px;font-weight:900;font-size:16px;outline:none;">
+    <div id="nico-sms-step1">
+      <label style="font-weight:700;font-size:13px;">Votre numéro mobile</label>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <div style="background:#f5f5f5;border:2px solid #e5e5e5;border-radius:9999px;padding:12px 16px;font-weight:900;">+33</div>
+        <input id="nico-sms-phone" type="tel" placeholder="6 12 34 56 78" style="flex:1;border:2px solid #111;border-radius:9999px;padding:12px 16px;font-weight:800;font-size:16px;outline:none;">
       </div>
-      <div id="recaptcha-container" style="margin-top:12px;display:flex;justify-content:center;"></div>
-      <button id="nico-send-code-btn" onclick="nicoSendCode()" style="margin-top:16px;width:100%;background:#111;color:white;border:none;border-radius:9999px;padding:14px;font-weight:900;font-size:15px;cursor:pointer;">📤 Envoyer le code SMS</button>
-      <div style="font-size:11px;color:#999;text-align:center;margin-top:10px;">Un SMS avec un code à 6 chiffres vous sera envoyé. Gratuit.</div>
+      <div id="nico-recaptcha" style="margin-top:16px;display:flex;justify-content:center;min-height:78px;"></div>
+      <button id="nico-sms-send" style="margin-top:16px;width:100%;background:#111;color:white;border:none;border-radius:9999px;padding:14px;font-weight:900;font-size:15px;cursor:pointer;">📩 Recevoir le code par SMS</button>
+      <div style="font-size:11px;color:#999;text-align:center;margin-top:8px;">SMS gratuit • Votre ligne reste libre</div>
+      <div id="nico-sms-error" style="margin-top:10px;font-size:12px;color:#D32F2F;font-weight:700;text-align:center;white-space:pre-wrap;"></div>
     </div>
-
-    <div id="nico-verify-step2" style="display:none;">
-      <div style="font-weight:700;font-size:13px;margin-bottom:8px;">Code reçu par SMS</div>
-      <input id="nico-verify-code" type="text" inputmode="numeric" maxlength="6" placeholder="123456" style="width:100%;border:2px solid #111;border-radius:9999px;padding:14px 16px;font-weight:900;font-size:22px;letter-spacing:8px;text-align:center;outline:none;">
-      <button id="nico-confirm-code-btn" onclick="nicoConfirmCode()" style="margin-top:16px;width:100%;background:#2E7D32;color:white;border:none;border-radius:9999px;padding:14px;font-weight:900;font-size:15px;cursor:pointer;">✅ Confirmer le code</button>
-      <button onclick="nicoBackToStep1()" style="margin-top:10px;width:100%;background:white;border:2px solid #e5e5e5;border-radius:9999px;padding:10px;font-weight:700;font-size:13px;cursor:pointer;">← Changer de numéro</button>
-      <div id="nico-verify-status" style="font-size:12px;text-align:center;margin-top:10px;color:#D32F2F;font-weight:700;"></div>
+    <div id="nico-sms-step2" style="display:none;">
+      <label style="font-weight:700;font-size:13px;">Code reçu par SMS (6 chiffres)</label>
+      <input id="nico-sms-code" type="text" inputmode="numeric" maxlength="6" placeholder="123456" style="width:100%;margin-top:8px;border:2px solid #111;border-radius:9999px;padding:14px;font-weight:900;font-size:22px;letter-spacing:8px;text-align:center;outline:none;">
+      <button id="nico-sms-confirm" style="margin-top:16px;width:100%;background:#2E7D32;color:white;border:none;border-radius:9999px;padding:14px;font-weight:900;font-size:15px;cursor:pointer;">✅ Vérifier le code</button>
+      <button id="nico-sms-back" style="margin-top:10px;width:100%;background:white;border:2px solid #e5e5e5;border-radius:9999px;padding:10px;font-weight:700;font-size:13px;cursor:pointer;">← Changer de numéro</button>
+      <div id="nico-sms-error2" style="margin-top:10px;font-size:12px;color:#D32F2F;font-weight:700;text-align:center;"></div>
     </div>
-
-    <div id="nico-verify-step3" style="display:none;text-align:center;">
+    <div id="nico-sms-step3" style="display:none;text-align:center;">
       <div style="font-size:48px;">✅</div>
-      <div style="font-weight:900;font-size:18px;margin-top:8px;color:#2E7D32;">Numéro vérifié !</div>
-      <div id="nico-verified-phone-display" style="font-size:13px;color:#666;margin-top:4px;"></div>
-      <button onclick="nicoCloseVerify()" style="margin-top:16px;width:100%;background:#111;color:white;border:none;border-radius:9999px;padding:14px;font-weight:900;font-size:15px;cursor:pointer;">Continuer la commande →</button>
+      <div style="font-weight:900;font-size:18px;color:#2E7D32;margin-top:8px;">Numéro vérifié !</div>
+      <div id="nico-sms-verified-num" style="font-size:13px;color:#666;margin-top:4px;"></div>
     </div>
   </div>
 </div>
-
 <script type="module">
-// Firebase Phone Auth - Anti fake orders
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyAz9rMNmFqWgAHhSaQLs3VoxdJD9bk1Fls",
   authDomain: "pizza-nico.firebaseapp.com",
   projectId: "pizza-nico",
   storageBucket: "pizza-nico.firebasestorage.app",
   messagingSenderId: "595658148712",
-  appId: "1:595658148712:web:9c522a4389d6050bf54dd",
-  measurementId: "G-RFNG7M2K2H"
+  appId: "1:595658148712:web:9c522a4389d6050bf54dd"
 };
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-auth.languageCode = 'fr';
-
-window.nicoAuth = auth;
-window.nicoConfirmationResult = null;
-window.nicoVerifiedPhone = localStorage.getItem('nico_verified_phone') || null;
-window.nicoIsPhoneVerified = !!window.nicoVerifiedPhone;
-
-window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-  'size': 'normal',
-  'callback': (response) => {
-    console.log('reCAPTCHA solved');
-  },
-  'expired-callback': () => {
-    console.log('reCAPTCHA expired');
-  }
-});
-
-window.nicoSendCode = async function(){
-  const phoneInput = document.getElementById('nico-verify-phone');
-  let phone = phoneInput.value.replace(/\s+/g,'').replace(/\D/g,'');
-  if(!phone || phone.length < 9){
-    alert('Entrez un numéro valide : 06 12 34 56 78');
-    return;
-  }
-  // Format to +33
-  if(phone.startsWith('0')) phone = phone.substring(1);
-  if(!phone.startsWith('33')) phone = '33' + phone;
-  const fullPhone = '+' + phone;
-  
-  const btn = document.getElementById('nico-send-code-btn');
-  btn.textContent = '⏳ Envoi en cours...';
-  btn.disabled = true;
-  
+let app, auth, recaptchaVerifier, confirmationResult;
+try{ app = initializeApp(firebaseConfig, "nico-sms"); }catch(e){ try{ app = initializeApp(firebaseConfig); }catch(e2){} }
+try{ auth = getAuth(app); auth.languageCode='fr'; window.nicoAuth=auth; }catch(e){ console.warn(e); }
+function initRecaptcha(){
   try{
-    window.nicoConfirmationResult = await signInWithPhoneNumber(auth, fullPhone, window.recaptchaVerifier);
-    console.log('SMS sent to', fullPhone);
-    window.nicoPendingPhone = fullPhone;
-    document.getElementById('nico-verify-step1').style.display='none';
-    document.getElementById('nico-verify-step2').style.display='block';
-    document.getElementById('nico-verify-status').textContent = 'Code envoyé au ' + fullPhone;
-    // Auto-focus code input
-    setTimeout(()=>{ document.getElementById('nico-verify-code').focus(); }, 300);
-  }catch(e){
-    console.error(e);
-    let msg = e.message;
-    if(e.code === 'auth/invalid-phone-number') msg = 'Numéro invalide. Format: 06 12 34 56 78';
-    if(e.code === 'auth/too-many-requests') msg = 'Trop de tentatives. Réessayez dans 10 minutes.';
-    alert('Erreur: ' + msg + '\n\nAssurez-vous que Phone Auth est activé dans Firebase Console > Authentication > Sign-in method > Phone');
-    // Reset recaptcha
-    try{ window.recaptchaVerifier.render().then(widgetId => { grecaptcha.reset(widgetId); }); }catch(err){}
-  }finally{
-    btn.textContent = '📤 Envoyer le code SMS';
-    btn.disabled = false;
-  }
-};
-
-window.nicoConfirmCode = async function(){
-  const codeInput = document.getElementById('nico-verify-code');
-  const code = codeInput.value.trim();
-  if(!code || code.length !== 6){
-    document.getElementById('nico-verify-status').textContent = 'Code à 6 chiffres requis';
-    return;
-  }
-  const btn = document.getElementById('nico-confirm-code-btn');
-  btn.textContent = '⏳ Vérification...';
-  btn.disabled = true;
-  
+    const c=document.getElementById('nico-recaptcha'); if(!c) return; c.innerHTML='';
+    if(recaptchaVerifier){ try{ recaptchaVerifier.clear(); }catch(e){} }
+    recaptchaVerifier=new RecaptchaVerifier(auth, 'nico-recaptcha', { 'size':'normal' });
+    recaptchaVerifier.render();
+  }catch(e){ console.error(e); }
+}
+function fmt(p){ let x=p.replace(/\D/g,''); if(x.startsWith('0')) x=x.substring(1); if(!x.startsWith('33')) x='33'+x; return '+'+x; }
+async function send(){
+  const phoneEl=document.getElementById('nico-sms-phone'); const err=document.getElementById('nico-sms-error'); const btn=document.getElementById('nico-sms-send');
+  let raw=phoneEl.value.trim(); if(!raw||raw.replace(/\D/g,'').length<9){ err.textContent='Entrez 06...'; return; }
+  const full=fmt(raw); if(!recaptchaVerifier){ initRecaptcha(); await new Promise(r=>setTimeout(r,600)); }
+  btn.textContent='⏳ Envoi...'; btn.disabled=true; err.textContent='';
   try{
-    const result = await window.nicoConfirmationResult.confirm(code);
-    const user = result.user;
-    console.log('Phone verified:', user.phoneNumber);
-    window.nicoVerifiedPhone = user.phoneNumber;
-    window.nicoIsPhoneVerified = true;
-    localStorage.setItem('nico_verified_phone', user.phoneNumber);
-    localStorage.setItem('nico_last_phone', user.phoneNumber);
-    localStorage.setItem('nico_verified_at', Date.now().toString());
-    
-    document.getElementById('nico-verify-step2').style.display='none';
-    document.getElementById('nico-verify-step3').style.display='block';
-    document.getElementById('nico-verified-phone-display').textContent = user.phoneNumber + ' vérifié ✓';
-    
-    // Auto-close after 1.5s and trigger checkout
-    setTimeout(()=>{ nicoCloseVerify(); }, 1500);
-    
+    confirmationResult=await signInWithPhoneNumber(auth, full, recaptchaVerifier);
+    window.nicoConfirmationResult=confirmationResult; window.nicoPendingPhoneFull=full;
+    document.getElementById('nico-sms-step1').style.display='none'; document.getElementById('nico-sms-step2').style.display='block';
+    document.getElementById('nico-sms-code').focus();
   }catch(e){
-    console.error(e);
-    document.getElementById('nico-verify-status').textContent = '❌ Code incorrect. Réessayez.';
-    codeInput.value = '';
-    codeInput.focus();
-  }finally{
-    btn.textContent = '✅ Confirmer le code';
-    btn.disabled = false;
-  }
+    console.error(e); let m=e.message||''; 
+    if(e.code==='auth/invalid-phone-number') m='Numéro invalide (06...)';
+    else if(e.code==='auth/api-key-not-valid' || (m && m.includes('api-key-not-valid'))) m='ERREUR api-key-not-valid:\n1. Firebase Console > Authentication > Settings > Authorized domains > ADD DOMAIN: pizzanico.github.io\n2. Google Cloud Console > APIs & Services > Credentials > Click API Key > Restrictions > None OR add github.io\n3. Enable Phone provider';
+    else if(e.code==='auth/too-many-requests') m='Trop de SMS, attendez 10 min';
+    err.textContent='❌ '+m;
+    try{ const id=await recaptchaVerifier.render(); if(window.grecaptcha) grecaptcha.reset(id); }catch(e2){}
+  }finally{ btn.textContent='📩 Recevoir le code par SMS'; btn.disabled=false; }
+}
+async function confirm(){
+  const codeEl=document.getElementById('nico-sms-code'); const err=document.getElementById('nico-sms-error2'); const btn=document.getElementById('nico-sms-confirm');
+  const code=codeEl.value.trim(); if(code.length!==6){ err.textContent='6 chiffres requis'; return; }
+  btn.textContent='⏳...'; btn.disabled=true; err.textContent='';
+  try{
+    const res=await confirmationResult.confirm(code); const phone=res.user.phoneNumber;
+    localStorage.setItem('nico_verified_phone', phone); localStorage.setItem('nico_verified_at', Date.now().toString()); localStorage.setItem('nico_last_phone', phone);
+    document.getElementById('nico-sms-step2').style.display='none'; document.getElementById('nico-sms-step3').style.display='block'; document.getElementById('nico-sms-verified-num').textContent=phone+' ✓';
+    setTimeout(()=>{ document.getElementById('nico-sms-modal').style.display='none'; if(window.nicoPendingCheckoutFn){ const fn=window.nicoPendingCheckoutFn; window.nicoPendingCheckoutFn=null; fn(); } }, 1200);
+  }catch(e){ err.textContent='❌ Code incorrect'; codeEl.value=''; codeEl.focus(); }
+  finally{ btn.textContent='✅ Vérifier le code'; btn.disabled=false; }
+}
+window.nicoOpenSMSVerify=function(fn){
+  const at=parseInt(localStorage.getItem('nico_verified_at')||'0'); const recent=Date.now()-at < 24*60*60*1000; const vp=localStorage.getItem('nico_verified_phone');
+  if(vp && recent){ if(fn) fn(); return; }
+  window.nicoPendingCheckoutFn=fn; document.getElementById('nico-sms-modal').style.display='flex'; document.getElementById('nico-sms-step1').style.display='block'; document.getElementById('nico-sms-step2').style.display='none'; document.getElementById('nico-sms-step3').style.display='none';
+  const last=(localStorage.getItem('nico_last_phone')||'').replace('+33','0'); if(last) document.getElementById('nico-sms-phone').value=last;
+  setTimeout(initRecaptcha, 400);
 };
-
-window.nicoBackToStep1 = function(){
-  document.getElementById('nico-verify-step2').style.display='none';
-  document.getElementById('nico-verify-step1').style.display='block';
-  document.getElementById('nico-verify-status').textContent = '';
-};
-
-window.nicoCloseVerify = function(){
-  document.getElementById('nico-verify-modal').style.display='none';
-  // Try to fill phone field in checkout form automatically
-  const verified = window.nicoVerifiedPhone || '';
-  const phoneFields = document.querySelectorAll('input[type="tel"], input[placeholder*="téléphone"], input[placeholder*="06"], input[placeholder*="phone" i]');
-  phoneFields.forEach(f=>{ if(f && !f.value) f.value = verified; f.dispatchEvent(new Event('input', {bubbles:true})); f.dispatchEvent(new Event('change', {bubbles:true})); });
-  // Also set localStorage for React app
-  localStorage.setItem('nico_last_phone', verified);
-  
-  // If we came from checkout, re-trigger checkout
-  if(window.nicoPendingCheckout){
-    const fn = window.nicoPendingCheckout;
-    window.nicoPendingCheckout = null;
-    setTimeout(()=>{ fn(); }, 500);
-  }
-};
-
-window.nicoOpenVerify = function(pendingCheckoutFn){
-  // If already verified within 24h, skip
-  const verifiedAt = parseInt(localStorage.getItem('nico_verified_at')||'0');
-  const isRecent = Date.now() - verifiedAt < 24*60*60*1000;
-  if(window.nicoIsPhoneVerified && isRecent){
-    console.log('Phone already verified recently, skipping');
-    if(pendingCheckoutFn) pendingCheckoutFn();
-    return;
-  }
-  if(pendingCheckoutFn) window.nicoPendingCheckout = pendingCheckoutFn;
-  document.getElementById('nico-verify-modal').style.display='flex';
-  document.getElementById('nico-verify-step1').style.display='block';
-  document.getElementById('nico-verify-step2').style.display='none';
-  document.getElementById('nico-verify-step3').style.display='none';
-  // Pre-fill last phone
-  const last = localStorage.getItem('nico_last_phone')||'';
-  if(last){
-    let display = last.replace('+33','0').replace('33','0');
-    document.getElementById('nico-verify-phone').value = display;
-  }
-};
-
-// Hook into checkout - intercept Commander button
-(function(){
-  function interceptCheckout(){
-    // Find checkout buttons
-    const buttons = Array.from(document.querySelectorAll('button')).filter(b => 
-      b.textContent.includes('Commander') || b.textContent.includes('Valider la commande') || b.textContent.includes('Confirmer la commande')
-    );
-    buttons.forEach(btn => {
-      if(btn.dataset.nicoIntercepted) return;
-      btn.dataset.nicoIntercepted = '1';
-      const originalOnClick = btn.onclick;
-      // We use event capturing to block before React handler if needed
-      btn.addEventListener('click', function(e){
-        const verifiedAt = parseInt(localStorage.getItem('nico_verified_at')||'0');
-        const isRecent = Date.now() - verifiedAt < 24*60*60*1000;
-        if(!window.nicoIsPhoneVerified || !isRecent){
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          console.log('Phone not verified, opening verification modal');
-          // Save the action to replay after verification
-          const phone = btn.closest('form')?.querySelector('input[type="tel"]')?.value || '';
-          window.nicoOpenVerify(()=>{
-            // After verification, click again programmatically
-            setTimeout(()=>{
-              // Remove our interception temporarily and click
-              delete btn.dataset.nicoIntercepted;
-              btn.click();
-              // Re-add interception after
-              setTimeout(()=>{ btn.dataset.nicoIntercepted='1'; }, 1000);
-            }, 300);
-          });
-          return false;
-        }
-      }, true);
-    });
-  }
-  setInterval(interceptCheckout, 1000);
-  document.addEventListener('DOMContentLoaded', interceptCheckout);
-})();
-
-console.log('🔒 NICO Phone Verification loaded - Anti fake orders enabled');
+document.getElementById('nico-sms-send')?.addEventListener('click', send);
+document.getElementById('nico-sms-confirm')?.addEventListener('click', confirm);
+document.getElementById('nico-sms-back')?.addEventListener('click', ()=>{ document.getElementById('nico-sms-step2').style.display='none'; document.getElementById('nico-sms-step1').style.display='block'; initRecaptcha(); });
+setInterval(()=>{
+  const btns=Array.from(document.querySelectorAll('button')).filter(b=> /Commander|Valider la commande|Confirmer/.test(b.textContent));
+  btns.forEach(b=>{
+    if(b.dataset.nicoSMSHook) return; b.dataset.nicoSMSHook='1';
+    b.addEventListener('click', (e)=>{
+      const at=parseInt(localStorage.getItem('nico_verified_at')||'0'); const recent=Date.now()-at < 24*60*60*1000; const vp=localStorage.getItem('nico_verified_phone');
+      if(!vp || !recent){
+        e.preventDefault(); e.stopImmediatePropagation();
+        window.nicoOpenSMSVerify(()=>{ const h=b.dataset.nicoSMSHook; delete b.dataset.nicoSMSHook; setTimeout(()=>{ b.click(); b.dataset.nicoSMSHook=h; }, 500); });
+        return false;
+      }
+    }, true);
+  });
+}, 1000);
+console.log('🔒 SMS verification final loaded');
 </script>
-<!-- END VERIFICATION -->
 
 </body>
 </html>
