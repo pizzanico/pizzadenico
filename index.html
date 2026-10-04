@@ -657,12 +657,19 @@ function nicoToast(msg, isFree){
 <script>
 (function(){
   const urlParams = new URLSearchParams(window.location.search);
-  const isAdminMode = urlParams.has('admin') || localStorage.getItem('nico_admin_enabled')==='1';
+  const isAdminMode = urlParams.has('admin'); // only ?admin shows button
   window.__nicoIsAdmin = isAdminMode;
   
   function initAdmin(){
     const btn = document.getElementById('nico-admin-btn');
+    const banner = document.getElementById('nico-admin-banner');
     if(!btn) return;
+    if(!isAdminMode){
+      btn.style.display='none';
+      if(banner) banner.style.display='none';
+      document.body.style.paddingTop='0px';
+      return;
+    }
     if(isAdminMode){
       btn.style.display='block';
       btn.style.position='fixed';
@@ -987,7 +994,7 @@ function nicoToast(msg, isFree){
     });
     
     localStorage.setItem('nico_price_overrides', JSON.stringify(ov));
-    localStorage.setItem('nico_admin_enabled','1');
+    // localStorage.setItem('nico_admin_enabled','1');
     alert('✅ Prix sauvegardés! Rechargement...');
     location.reload();
   };
@@ -1018,7 +1025,7 @@ function nicoToast(msg, isFree){
       document.getElementById('nico-admin-modal').style.display='flex';
       nicoAdminTab('pizzas');
       document.getElementById('nico-admin-btn').style.display='block';
-      localStorage.setItem('nico_admin_enabled','1');
+      // localStorage.setItem('nico_admin_enabled','1');
     }
   });
 
