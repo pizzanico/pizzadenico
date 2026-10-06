@@ -101,9 +101,18 @@ Error generating stack: `+u.message+`
     step="localStorage save";
     console.log("STEP "+step);
     try{let ex=localStorage.getItem("nico_orders_demo");let arr=ex?JSON.parse(ex):[];arr.push(orderData);localStorage.setItem("nico_orders_demo",JSON.stringify(arr));console.log("localStorage saved, count "+arr.length);}catch(e){console.error("localStorage failed",e);}
-    step="firebase try";
+    step="firebase try (non-blocking)";
     console.log("STEP "+step);
-    try{if(C&&C.current&&z&&z.current){let{collection:R,addDoc:F,serverTimestamp:Ue}=z.current;await F(R(C.current,"orders"),{...orderData,createdAt:Ue()});console.log("Firebase saved");}}catch(e){console.warn("Firebase failed (ok)",e);}
+    try{
+      if(C&&C.current&&z&&z.current){
+        let{collection:R,addDoc:F,serverTimestamp:Ue}=z.current;
+        // Fire and forget - don't await
+        F(R(C.current,"orders"),{...orderData,createdAt:Ue()}).then(()=>console.log("Firebase saved OK")).catch(e=>console.warn("Firebase failed (ok)",e));
+        console.log("Firebase sent (no await)");
+      } else {
+        console.log("Firebase not ready, skip");
+      }
+    }catch(e){console.warn("Firebase failed (ok)",e);}
     step="set last order _";
     console.log("STEP "+step);
     try{_(orderData);console.log("_(order) ok");}catch(e){console.error("_(order) failed",e);}
