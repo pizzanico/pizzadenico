@@ -82,29 +82,78 @@ button[data-ing-cat="epice"], .ing-cat-epice { background:#FFF3E0 !important; bo
   try{ var s=localStorage.getItem('nico_vanilla_cart'); if(s) window._nicoVanillaCart=JSON.parse(s); }catch(e){}
   function save(){ try{ localStorage.setItem('nico_vanilla_cart', JSON.stringify(window._nicoVanillaCart)); }catch(e){} }
   window._nicoRealAdd = null;
-  window._nicoRealGetCart = null;
   window._nicoCartReady = false;
+  
+  // Try to find React's setCart and force add
   window.nicoAddToCart = function(item){
-    if(window._nicoCartReady && window._nicoRealAdd){ try{ window._nicoRealAdd(item); return; }catch(e){} }
+    console.log('NICO ADD (robust):', item.name, 'ready:', window._nicoCartReady);
+    if(window._nicoCartReady && window._nicoRealAdd){
+      try{ window._nicoRealAdd(item); return; }catch(e){ console.error(e); }
+    }
+    // Vanilla fallback
     var idx=-1;
-    for(var i=0;i<window._nicoVanillaCart.length;i++){ if(window._nicoVanillaCart[i].name===item.name && window._nicoVanillaCart[i].size===item.size){ idx=i; break; } }
-    if(idx>=0){ window._nicoVanillaCart[idx].qty = (window._nicoVanillaCart[idx].qty||1)+1; }
+    for(var i=0;i<window._nicoVanillaCart.length;i++){ 
+      if(window._nicoVanillaCart[i].name===item.name && window._nicoVanillaCart[i].size===item.size){ idx=i; break; } 
+    }
+    if(idx>=0){ window._nicoVanillaCart[idx].qty++; }
     else { item.uid=Math.random().toString(36).slice(2); item.qty=1; window._nicoVanillaCart.push(item); }
     save();
+    // Show toast
     if(window.nicoToast) window.nicoToast(item.name+' ajouté', false);
+    // Try to flush to React
     var tries=0;
     var iv=setInterval(function(){
       tries++;
-      if(window._nicoCartReady && window._nicoRealAdd && window._nicoVanillaCart.length>0){
-        var q=window._nicoVanillaCart.slice(); window._nicoVanillaCart=[]; try{ localStorage.removeItem('nico_vanilla_cart'); }catch(e){}
+      if(window._nicoCartReady && window._nicoRealAdd){
+        var q=window._nicoVanillaCart.slice(); window._nicoVanillaCart=[]; 
+        try{ localStorage.removeItem('nico_vanilla_cart'); }catch(e){}
         q.forEach(function(it){ try{ window._nicoRealAdd(it); }catch(e){} });
         clearInterval(iv);
+        // Force open Panier drawer
+        setTimeout(function(){
+          var panierBtn = document.querySelector('button:has(> * :contains("Panier"))') || document.querySelector('[class*="Panier"]');
+          // Try to find cart opener - the Panier button in header
+          var headerPanier = Array.from(document.querySelectorAll('button')).find(b=>b.textContent.includes('Panier'));
+          if(headerPanier) headerPanier.click();
+        }, 200);
       }
       if(tries>30) clearInterval(iv);
     },300);
   };
-  window.nicoGetCart = function(){ if(window._nicoRealGetCart) return window._nicoRealGetCart(); return window._nicoVanillaCart; };
-  window.nicoToast = window.nicoToast || function(msg){ var t=document.createElement('div'); t.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:14px 22px;border-radius:9999px;font-weight:bold;z-index:99999;'; t.textContent='✓ '+msg; document.body.appendChild(t); setTimeout(function(){ t.remove(); },2500); };
+  
+  window.nicoGetCart = function(){ 
+    if(window._nicoRealGetCart) return window._nicoRealGetCart();
+    return window._nicoVanillaCart; 
+  };
+  
+  // Also inject into Panier empty state DOM
+  setInterval(function(){
+    try{
+      var emptyDiv = document.evaluate("//div[contains(text(),'Votre panier est vide')]", document, null, 9, null).singleNodeValue;
+      if(emptyDiv && window._nicoVanillaCart.length>0){
+        var parent = emptyDiv.parentElement.parentElement;
+        // Don't replace if React cart has items
+        var realCart = window._nicoRealGetCart ? window._nicoRealGetCart() : [];
+        if(realCart.length>0) return;
+        // Render vanilla cart inside Panier
+        var subtotal=0;
+        window._nicoVanillaCart.forEach(function(i){ subtotal+= (i.price||0)*(i.qty||1); });
+        var fee=2;
+        var total=subtotal+fee;
+        var html='<div style="padding:12px;"><div style="font-weight:bold;margin-bottom:8px;">🛒 Panier ('+window._nicoVanillaCart.length+')</div>';
+        window._nicoVanillaCart.forEach(function(i){
+          html+='<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee;font-size:13px;"><span>'+(i.qty||1)+'× '+i.name+'</span><span>'+((i.price*(i.qty||1)).toFixed(2))+'€</span></div>';
+        });
+        html+='<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:#666;"><span>Sous-total</span><span>'+subtotal.toFixed(2)+'€</span></div>';
+        html+='<div style="display:flex;justify-content:space-between;font-size:12px;"><span>Livraison</span><span>'+fee.toFixed(2)+'€</span></div>';
+        html+='<div style="display:flex;justify-content:space-between;font-weight:900;margin-top:8px;padding-top:8px;border-top:2px solid #111;"><span>Total</span><span>'+total.toFixed(2)+'€</span></div>';
+        html+='<div style="margin-top:12px;font-size:11px;color:#888;text-align:center;">Ajoutez une pizza pour fusionner avec le vrai panier</div>';
+        html+='</div>';
+        // Replace empty content
+        if(parent) parent.innerHTML = html;
+      }
+    }catch(e){}
+  }, 800);
 })();
 </script>
 <div id="root"></div>
@@ -650,7 +699,7 @@ function nicoAddDrink(name, desc, price){
     var freeUsed = cart.filter(function(i){return i.type==='boisson' && i.price===0;}).reduce(function(a,b){return a+b.qty;},0);
     var isFree = freeUsed < freeTotal;
     var item = {name:name, size:'Boisson', ingredients:desc, price: isFree ? 0 : price, type:'boisson', originalPrice:price, isFree:isFree};
-    window.nicoAddToCart(item); nicoToast(name + (isFree ? ' OFFERTE 🎁' : ' ajouté'), isFree);
+    window.nicoAddToCart(item); nicoToast(name + ' ajouté', false);
   }catch(e){ alert('Erreur: '+e.message); }
 }
 function nicoAddDessert(name, desc, price){
