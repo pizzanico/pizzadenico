@@ -170,7 +170,156 @@ Error generating stack: `+u.message+`
                 ${n==="classique"?"bg-[#D32F2F] text-white shadow-[0_8px_20px_rgba(211,47,47,0.35)] scale-[1.02] ring-2 ring-[#D32F2F]/20":"bg-white text-[#D32F2F] border-2 border-[#D32F2F]/30 hover:border-[#D32F2F] hover:bg-[#D32F2F]/10"}`,children:"Pizzas Classiques"}),p("button",{onClick:()=>t("custom"),className:`h-[46px] px-5 sm:px-7 rounded-full font-semibold text-[14px] tracking-wide transition-all duration-200 flex items-center justify-center gap-2
                 ${n==="custom"?"bg-[#FBC02D] text-[#1e1e1e] shadow-[0_8px_20px_rgba(251,192,45,0.4)] scale-[1.02] ring-2 ring-[#FBC02D]/30":"bg-white text-[#1e1e1e] border-2 border-[#FBC02D]/50 hover:border-[#FBC02D] hover:bg-[#FBC02D]/15"}`,children:[y("span",{className:"w-2 h-2 rounded-full bg-[#1e1e1e] inline-block"})," Créer ma pizza"]}),p("button",{onClick:()=>t("halal"),className:`h-[46px] px-5 sm:px-7 rounded-full font-semibold text-[14px] tracking-wide transition-all duration-200 flex items-center justify-center gap-2
                 ${n==="halal"?"bg-[#2E7D32] text-white shadow-[0_8px_20px_rgba(46,125,50,0.35)] scale-[1.02] ring-2 ring-[#2E7D32]/20":"bg-white text-[#2E7D32] border-2 border-[#2E7D32]/30 hover:border-[#2E7D32] hover:bg-[#2E7D32]/10"}`,children:[y("span",{children:"\uD83C\uDF19"})," Halal"]})]}),p("div",{className:"mb-5 bg-gradient-to-r from-[#2E7D32] to-[#43A047] text-white rounded-[16px] px-4 py-3 flex items-center justify-between gap-3 shadow-[0_4px_12px_rgba(46,125,50,0.2)]",children:[p("div",{className:"flex items-center gap-2",children:[y("span",{className:"text-xl",children:"🎁"}),y("div",{children:[y("div",{className:"font-black text-[13px] leading-tight",children:"PROMO DU MOMENT : 5 MAXI = 1 Boisson OFFERTE"}),y("div",{className:"text-[11px] opacity-90",children:"10 MAXI = 2 Boissons • Valable au retrait & livraison"})]})]}),y("div",{className:"bg-white text-[#2E7D32] font-black text-[10px] px-2.5 py-1 rounded-full hidden sm:block",children:"OFFERT"})]}),n==="classique"&&p(_n,{children:[p("div",{className:"flex items-center justify-between mb-4",children:[y("h2",{className:"font-black text-xl",children:"Nos pizzas • 39 recettes"}),p("div",{className:"flex gap-2 text-[11px] font-bold",children:[p("span",{className:"flex items-center gap-1",children:[y("span",{className:"w-3 h-3 rounded-full bg-[#FFEBEB] border"})," Tomate"]}),p("span",{className:"flex items-center gap-1",children:[y("span",{className:"w-3 h-3 rounded-full bg-[#FFF9DB] border"})," Crème"]})]})]}),["tomate","crème"].map((h)=>p("div",{className:"mb-8",children:[p("h3",{className:"font-bold text-sm uppercase tracking-widest text-zinc-500 mb-3 flex items-center gap-2",children:["Base ",h," ",y("span",{className:"h-px flex-1 bg-zinc-200"})]}),y("div",{className:"grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4",children:af.filter((w)=>w.base===h).map((w)=>p("div",{className:`rounded-[20px] border p-4 flex flex-col ${w.base==="tomate"?"bg-[#FFEBEB] border-[#FFD5D5]":"bg-[#FFF9DB] border-[#FFEC99]"}`,children:[p("div",{className:"flex justify-between items-start gap-3",children:[p("div",{children:[y("div",{className:"font-black text-[16px] leading-tight",children:w.name}),y("div",{className:"text-[12px] text-zinc-600 leading-snug mt-1 line-clamp-2",children:w.ingredients})]}),y("div",{className:"text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-white border shrink-0",children:w.base})]}),p("div",{className:"mt-4 flex gap-2",children:[p("button",{onClick:()=>window.__nicoOpenCustomizer({name:w.name,base:w.base,ingredients:w.ingredients,priceSolo:w.priceSolo,priceMaxi:w.priceMaxi},"SOLO"),className:"flex-1 rounded-full bg-[#2E7D32] text-white text-sm font-bold py-2.5 flex items-center justify-center gap-2 hover:brightness-110 transition",children:["SOLO ",p("span",{className:"bg-white/20 px-2 py-0.5 rounded-full text-xs",children:[w.priceSolo.toFixed(2),"€"]})]}),p("button",{onClick:()=>window.__nicoOpenCustomizer({name:w.name,base:w.base,ingredients:w.ingredients,priceSolo:w.priceSolo,priceMaxi:w.priceMaxi},"MAXI"),className:"flex-1 rounded-full bg-[#D32F2F] text-white text-sm font-bold py-2.5 flex items-center justify-center gap-2 hover:brightness-110 transition",children:["MAXI ",p("span",{className:"bg-white/20 px-2 py-0.5 rounded-full text-xs",children:[w.priceMaxi.toFixed(2),"€"]})]})]})]},w.id))})]},h))]}),n==="halal"&&p(_n,{children:[p("div",{className:"mb-5 rounded-[16px] bg-[#D32F2F]/10 border border-[#D32F2F]/20 px-4 py-3 flex items-center gap-3",children:[y("div",{className:"w-8 h-8 rounded-full bg-[#D32F2F] text-white flex items-center justify-center text-[14px] shrink-0",children:"\uD83C\uDF19"}),p("div",{children:[y("div",{className:"font-bold text-[14px] text-[#D32F2F] leading-tight",children:"\uD83C\uDF19 Sélection Halal - sans porc, ingrédients certifiés"}),p("div",{className:"text-[11px] text-zinc-600 mt-0.5",children:[wr.length," pizzas disponibles • sans lardons, épaule, jambon, bacon"]})]})]}),p("div",{className:"flex items-center justify-between mb-4",children:[p("h2",{className:"font-black text-xl flex items-center gap-2",children:[y("span",{className:"text-[#D32F2F]",children:"\uD83C\uDF19"})," Halal • ",wr.length," recettes"]}),p("div",{className:"flex gap-2 text-[11px] font-bold",children:[p("span",{className:"flex items-center gap-1",children:[y("span",{className:"w-3 h-3 rounded-full bg-[#FFEBEB] border"})," Tomate"]}),p("span",{className:"flex items-center gap-1",children:[y("span",{className:"w-3 h-3 rounded-full bg-[#FFF9DB] border"})," Crème"]})]})]}),["tomate","crème"].map((h)=>p("div",{className:"mb-8",children:[p("h3",{className:`font-bold text-sm uppercase tracking-widest mb-3 flex items-center gap-2 ${h==="tomate"?"text-[#D32F2F]/70":"text-[#2E7D32]/70"}`,children:["Base ",h," ",y("span",{className:"h-px flex-1 bg-zinc-200"})]}),p("div",{className:"grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4",children:[wr.filter((w)=>w.base===h).map((w)=>p("div",{className:`rounded-[20px] border p-4 flex flex-col relative overflow-hidden ${w.base==="tomate"?"bg-[#FFEBEB] border-[#FFCDD2]":"bg-[#FFF9DB] border-[#FFEC99]"}`,children:[y("div",{className:"absolute top-0 right-0 bg-[#D32F2F] text-white text-[9px] font-black px-2.5 py-1 rounded-bl-[12px] tracking-widest",children:"HALAL"}),p("div",{className:"flex justify-between items-start gap-3",children:[p("div",{children:[p("div",{className:"font-black text-[16px] leading-tight flex items-center gap-1.5",children:[w.name," ",y("span",{className:"text-[12px]",children:"\uD83C\uDF19"})]}),y("div",{className:"text-[12px] text-zinc-600 leading-snug mt-1 line-clamp-2",children:w.ingredients})]}),y("div",{className:"text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full bg-white border shrink-0 mt-4",children:w.base})]}),p("div",{className:"mt-4 flex gap-2",children:[p("button",{onClick:()=>St({name:w.name+" \uD83C\uDF19",base:w.base,size:"SOLO",ingredients:w.ingredients,price:w.priceSolo}),className:"flex-1 rounded-full bg-[#2E7D32] text-white text-sm font-bold py-2.5 flex items-center justify-center gap-2 hover:brightness-110 transition",children:["SOLO ",p("span",{className:"bg-white/20 px-2 py-0.5 rounded-full text-xs",children:[w.priceSolo.toFixed(2),"€"]})]}),p("button",{onClick:()=>St({name:w.name+" \uD83C\uDF19",base:w.base,size:"MAXI",ingredients:w.ingredients,price:w.priceMaxi}),className:"flex-1 rounded-full bg-[#D32F2F] text-white text-sm font-bold py-2.5 flex items-center justify-center gap-2 hover:brightness-110 transition",children:["MAXI ",p("span",{className:"bg-white/20 px-2 py-0.5 rounded-full text-xs",children:[w.priceMaxi.toFixed(2),"€"]})]})]})]},w.id)),wr.filter((w)=>w.base===h).length===0&&p("div",{className:"col-span-full text-center py-8 text-zinc-500 text-sm bg-white rounded-2xl border border-dashed",children:["Aucune pizza halal en base ",h]})]})]},h))]}),n==="custom"&&p("div",{className:"bg-white rounded-[24px] border border-zinc-200 p-5 md:p-6 shadow-sm",children:[p("div",{className:"flex flex-wrap items-center justify-between gap-3 mb-6",children:[y("h2",{className:"font-black text-xl",children:"Créer ma pizza"}),p("div",{className:"flex items-center gap-2 text-sm font-bold",children:[y("span",{className:"text-zinc-500",children:"Total:"}),p("span",{className:"bg-zinc-900 text-white px-3 py-1 rounded-full",children:[Ql.toFixed(2),"€ • ",O]})]})]}),p("div",{className:"grid md:grid-cols-2 gap-4 mb-6",children:[p("div",{className:"space-y-3",children:[y("div",{className:"text-xs font-bold uppercase tracking-widest text-zinc-500",children:"Base"}),y("div",{className:"flex gap-2",children:["tomate","crème"].map((h)=>y("button",{onClick:()=>{T(h);Bl(h==="crème"||h==="creme"?["Emmental"]:["Mozzarella"])},className:`flex-1 rounded-full py-2.5 text-sm font-bold border-2 transition ${L===h?"bg-zinc-900 text-white border-zinc-900":"bg-white border-zinc-200"}`,children:h==="tomate"?"Tomate":"Crème"},h))})]}),p("div",{className:"space-y-3",children:[y("div",{className:"text-xs font-bold uppercase tracking-widest text-zinc-500",children:"Taille"}),p("div",{className:"flex gap-2",children:[y("button",{onClick:()=>{I("SOLO");Bl(L==="crème"||L==="creme"?["Emmental"]:["Mozzarella"])},className:`flex-1 rounded-full py-2.5 text-sm font-bold border-2 flex items-center justify-center gap-2 ${O==="SOLO"?"bg-[#2E7D32] text-white border-[#2E7D32]":"bg-white border-zinc-200"}`,children:(L==="crème"||L==="creme"?"SOLO 7.50€":"SOLO 9.50€")}),y("button",{onClick:()=>{I("MAXI");Bl(L==="crème"||L==="creme"?["Emmental"]:["Mozzarella"])},className:`flex-1 rounded-full py-2.5 text-sm font-bold border-2 flex items-center justify-center gap-2 ${O==="MAXI"?"bg-[#D32F2F] text-white border-[#D32F2F]":"bg-white border-zinc-200"}`,children:(L==="crème"||L==="creme"?"MAXI 9.50€":"MAXI 13.50€")})]})]})]}),ie.length>0&&y("div",{className:"mb-5 bg-[#FFF9DB] rounded-2xl p-3 flex flex-wrap gap-2",children:ie.map((h)=>p("span",{className:"inline-flex items-center gap-1 bg-white border rounded-full px-3 py-1 text-xs font-semibold",children:[h," ",y("button",{onClick:()=>gi(h),className:"w-4 h-4 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[10px]",children:"×"})]},h))}),y("div",{className:"space-y-2",children:cf.map((h)=>p("div",{className:"border rounded-2xl overflow-hidden",children:[p("button",{onClick:()=>vf(Hl===h.name?"":h.name),className:"w-full flex items-center justify-between p-4 bg-zinc-50 hover:bg-zinc-100 text-left",children:[p("span",{className:"font-bold text-sm flex items-center gap-2",children:[h.name," ",p("span",{className:"text-xs font-normal text-zinc-500 bg-white border px-2 py-0.5 rounded-full",children:["+",h.price,"€"]})]}),y("span",{className:`transition ${Hl===h.name?"rotate-180":""}`,children:"⌄"})]}),Hl===h.name&&y("div",{className:"p-3 grid grid-cols-1 sm:grid-cols-2 gap-2 bg-white",children:h.items.map((w)=>{let R=ie.includes(w);let isHalal=!hf.some((h)=>w.toLowerCase().includes(h.toLowerCase()));return p("button",{onClick:()=>gi(w),className:`text-left rounded-full px-4 py-2 text-sm border flex items-center justify-between transition ${R?"bg-[#FBC02D] border-[#FBC02D] font-bold":"bg-white border-zinc-200 hover:border-zinc-400"}`,children:[p("span",{className:"flex items-center gap-1.5",children:[y("span",{children:w}),isHalal&&h.name==="Viandes"&&y("span",{className:"text-[9px] font-black px-1.5 py-0.5 rounded-full bg-[#2E7D32] text-white",children:"HALAL"}),!isHalal&&y("span",{className:"text-[9px] font-black px-1.5 py-0.5 rounded-full bg-[#D32F2F] text-white",children:"NON-HALAL"})]}),y("span",{className:`w-5 h-5 rounded-full border-2 flex items-center justify-center text-[10px] ${R?"bg-zinc-900 border-zinc-900 text-white":"border-zinc-300"}`,children:R?"✓":""})]},w)})})]},h.name))}),p("button",{onClick:()=>{St({name:`Custom ${L}`,base:L,size:O,ingredients:ie.join(", "),price:Ql});Bl(L==="crème"||L==="creme"||L==="creme"?["Emmental"]:["Mozzarella"]);},className:"mt-6 w-full rounded-full bg-[#FBC02D] text-zinc-900 font-black py-4 text-[16px] hover:brightness-105 transition",children:["Ajouter au panier • ",Ql.toFixed(2),"€"]}),p("div",{className:"text-[11px] text-zinc-500 text-center mt-2",children:["Base ",O," ",L,"  ",O==="SOLO"?7.9:11.9,"€ + ingrédients"]})]})]}),y("div",{className:"hidden lg:block w-[340px] shrink-0",children:y("div",{className:"sticky top-[80px] bg-white rounded-[24px] border border-zinc-200 p-5 shadow-[0_10px_40px_rgba(0,0,0,0.06)]",children:y(sf,{cart:r,updateQty:yi,subtotal:kt,deliveryFee:$n,total:Wn,orderType:c,onCheckout:()=>a(!0)})})})]}),!i&&!u&&r.length>0&&y("div",{className:"lg:hidden fixed bottom-0 left-0 right-0 z-40 p-4 bg-gradient-to-t from-white via-white/95 to-transparent pointer-events-none",children:y("div",{className:"pointer-events-auto",style:{paddingBottom:"env(safe-area-inset-bottom)"},children:p("button",{onClick:()=>o(!0),className:"w-full bg-zinc-900 text-white rounded-full h-[56px] px-6 font-bold flex items-center justify-between shadow-[0_12px_32px_rgba(0,0,0,0.25)] hover:bg-black transition-all active:scale-[0.98]",children:[p("span",{className:"flex items-center gap-2.5 text-[15px]",children:[y("span",{className:"w-8 h-8 rounded-full bg-white/15 flex items-center justify-center",children:"\uD83D\uDED2"}),"Voir panier • ",r.reduce((h,w)=>h+w.qty,0)," ",r.reduce((h,w)=>h+w.qty,0)===1?"pizza":"pizzas"]}),p("span",{className:"bg-white text-zinc-900 px-3.5 py-1.5 rounded-full text-[14px] font-black",children:[Wn.toFixed(2),"€"]})]})})}),u&&p("div",{className:"fixed inset-0 z-50 lg:hidden",children:[y("div",{className:"absolute inset-0 bg-black/40",onClick:()=>o(!1)}),p("div",{className:"absolute bottom-0 left-0 right-0 bg-white rounded-t-[28px] max-h-[85vh] flex flex-col p-5",children:[y("div",{className:"w-10 h-1.5 bg-zinc-200 rounded-full mx-auto mb-4"}),y("div",{className:"flex-1 overflow-auto",children:y(sf,{cart:r,updateQty:yi,subtotal:kt,deliveryFee:$n,total:Wn,orderType:c,onCheckout:()=>{o(!1),a(!0)}})}),y("button",{onClick:()=>o(!1),className:"mt-4 w-full rounded-full border py-3 font-bold",children:"Continuer mes achats"})]})]}),i&&p("div",{className:"fixed inset-0 z-[60] flex items-end md:items-center justify-center",children:[y("div",{className:"absolute inset-0 bg-black/50 backdrop-blur-sm",onClick:()=>a(!1)}),p("div",{className:"relative bg-white w-full md:max-w-[480px] rounded-t-[28px] md:rounded-[24px] flex flex-col max-h-[90dvh] md:max-h-[85vh] overflow-hidden shadow-2xl",children:[p("div",{className:"shrink-0 px-6 pt-6 pb-4 flex justify-between items-center border-b border-zinc-100",children:[y("h3",{className:"font-black text-xl",children:"Finaliser la commande"}),y("button",{onClick:()=>a(!1),className:"w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center hover:bg-zinc-200 transition",children:"✕"})]}),p("div",{className:"flex-1 overflow-y-auto px-6 py-5 space-y-4 overscroll-contain max-h-[75vh] md:max-h-[60vh]",children:[y("div",{className:"flex gap-2 p-1 bg-zinc-100 rounded-full w-fit",children:["Retrait","Livraison"].map((h)=>p("button",{onClick:()=>g(h),className:`px-5 py-2 rounded-full text-sm font-bold transition ${c===h?"bg-zinc-900 text-white shadow-sm":"text-zinc-600 hover:text-zinc-900"}`,children:[h," ",h==="Livraison"?`+${$n}€`:""]},h))}),p("div",{className:"grid grid-cols-2 gap-3",children:[p("label",{className:"col-span-2 text-xs font-bold uppercase tracking-wide",children:["Nom *",y("input",{value:v.name,onChange:(h)=>m({...v,name:h.target.value}),placeholder:"Votre nom",className:"mt-1.5 w-full rounded-full border border-zinc-200 px-4 py-3 text-sm outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 transition"})]}),p("label",{className:"col-span-2 text-xs font-bold uppercase tracking-wide",children:["Téléphone *",y("input",{value:v.phone,onChange:(h)=>m({...v,phone:h.target.value}),placeholder:"06 12 34 56 78",className:"mt-1.5 w-full rounded-full border border-zinc-200 px-4 py-3 text-sm outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 transition"})]}),c==="Livraison"&&p(_n,{children:[p("label",{className:"col-span-2 text-xs font-bold uppercase tracking-wide",children:["Adresse",y("input",{value:v.address,onChange:(h)=>m({...v,address:h.target.value}),placeholder:"Rue, numéro",className:"mt-1.5 w-full rounded-full border border-zinc-200 px-4 py-3 text-sm outline-none focus:border-zinc-900"})]}),p("label",{className:"text-xs font-bold uppercase tracking-wide",children:["Ville",y("input",{value:v.city,onChange:(h)=>m({...v,city:h.target.value}),placeholder:"Bischwiller",className:"mt-1.5 w-full rounded-full border border-zinc-200 px-4 py-3 text-sm outline-none focus:border-zinc-900"})]}),p("label",{className:"text-xs font-bold uppercase tracking-wide",children:["Code postal",y("input",{value:v.zip,onChange:(h)=>m({...v,zip:h.target.value}),placeholder:"67240",className:"mt-1.5 w-full rounded-full border border-zinc-200 px-4 py-3 text-sm outline-none focus:border-zinc-900"})]})]}),c==="Livraison"&&p("label",{className:"col-span-2 text-xs font-bold uppercase tracking-wide",children:["Infos complémentaires",y("textarea",{value:v.extraInfo,onChange:(h)=>m({...v,extraInfo:h.target.value}),placeholder:"Étage, digicode, instructions...",className:"mt-1.5 w-full rounded-2xl border border-zinc-200 px-4 py-3 text-sm min-h-[72px] outline-none focus:border-zinc-900 resize-none"})]})]}),p("div",{className:"bg-zinc-50 rounded-2xl p-4 text-sm space-y-2.5 border border-zinc-100",children:[p("div",{className:"flex justify-between",children:[y("span",{className:"text-zinc-500",children:"Sous-total"}),p("span",{className:"font-bold",children:[kt.toFixed(2),"€"]})]}),c==="Livraison"&&p("div",{className:"flex justify-between",children:[p("span",{className:"text-zinc-500",children:["Livraison ",v.city.toLowerCase().includes("bischwiller")||v.zip==="67240"?"Bischwiller 2€ x pizza":"3€ x pizza"]}),p("span",{className:"font-bold",children:[$n.toFixed(2),"€"]})]}),p("div",{className:"flex justify-between font-black text-[16px] border-t border-zinc-200 pt-2.5",children:[y("span",{children:"Total"}),p("span",{children:[Wn.toFixed(2),"€"]})]})]}),y("div",{className:"text-[11px] text-zinc-500 text-center pb-2",children:'Commande enregistrée dans Firebase Firestore • Collection "orders" • Status: Nouveau'})]}),p("div",{className:"shrink-0 sticky bottom-0 bg-white/95 backdrop-blur-xl border-t border-zinc-200 p-4 shadow-[0_-8px_30px_rgba(0,0,0,0.06)]",style:{paddingBottom:"max(16px, env(safe-area-inset-bottom))"},children:[(()=>{let h=true,w=v.name.trim().length>0,R=r.length>0&&w,F=`Confirmer la commande • ${Wn.toFixed(2)}€`;if(!h)F="Ajoutez votre numéro";else if(!w)F="Ajoutez votre nom";return y("button",{onClick:mf,disabled:!R,className:`w-full rounded-full h-[56px] font-black text-[15px] md:text-[16px] transition-all flex items-center justify-center gap-2
-                      ${R?"bg-[#2E7D32] text-white shadow-[0_8px_20px_rgba(46,125,50,0.3)] hover:brightness-110 active:scale-[0.98]":"bg-zinc-200 text-zinc-500 cursor-not-allowed"}`,children:R?p(_n,{children:[y("span",{children:F}),y("span",{className:"w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-[16px]",children:"→"})]}):F})})(),p("div",{className:"mt-2.5 flex items-center justify-center gap-1.5 text-[11px] text-zinc-400",children:[y("span",{className:"w-3 h-3 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-[8px]",children:"✓"}),"Paiement à la livraison • Pas de CB en ligne"]})]})]})]}),p("footer",{className:"max-w-[1200px] mx-auto px-6 py-10 text-[11px] text-zinc-400 text-center border-t mt-10",children:["La Pizza de Nico • Bischwiller • 03 88 06 26 64 • Sans WhatsApp, 100% Firebase • ",y("span",{className:"text-zinc-500",children:"Pizzas artisanales"}.reduce(function(a,b){return a+(b.qty||0);},0);
+                      ${R?"bg-[#2E7D32] text-white shadow-[0_8px_20px_rgba(46,125,50,0.3)] hover:brightness-110 active:scale-[0.98]":"bg-zinc-200 text-zinc-500 cursor-not-allowed"}`,children:R?p(_n,{children:[y("span",{children:F}),y("span",{className:"w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-[16px]",children:"→"})]}):F})})(),p("div",{className:"mt-2.5 flex items-center justify-center gap-1.5 text-[11px] text-zinc-400",children:[y("span",{className:"w-3 h-3 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-[8px]",children:"✓"}),"Paiement à la livraison • Pas de CB en ligne"]})]})]})]}),p("footer",{className:"max-w-[1200px] mx-auto px-6 py-10 text-[11px] text-zinc-400 text-center border-t mt-10",children:["La Pizza de Nico • Bischwiller • 03 88 06 26 64 • Sans WhatsApp, 100% Firebase • ",y("span",{className:"text-zinc-500",children:"Pizzas artisanales"})]})]})}function sf({cart:e,updateQty:n,subtotal:t,deliveryFee:r,total:l,orderType:u,onCheckout:o}){let promoCount=e.filter((i)=>i.size==="MAXI").reduce((a,b)=>a+b.qty,0);let promoFree=Math.floor(promoCount/5);let promoMsg=promoFree>0?`🎁 ${promoFree} boisson(s) OFFERTE(S) !`:promoCount>0?`Plus que ${5-promoCount%5} MAXI pour 1 boisson offerte 🎁`:"";let loyaltyCount=0;let freePizzas=0;try{let lastPhone=localStorage.getItem("nico_last_phone")||"";if(lastPhone){let k="nico_loyalty_"+lastPhone;let fk="nico_free_"+lastPhone;loyaltyCount=parseInt(localStorage.getItem(k)||"0");freePizzas=parseInt(localStorage.getItem(fk)||"0");if(isNaN(loyaltyCount))loyaltyCount=0;if(isNaN(freePizzas))freePizzas=0;}}catch(e){}let day=new Date().getDay();let isMonThu=day>=1&&day<=4;let hasFreeToken=freePizzas>0;let loyaltyEligible=(loyaltyCount>=12||hasFreeToken)&&isMonThu&&promoCount>0;let cheapestMaxiPrice=0;let freeDiscount=0;if(loyaltyEligible){let maxiItems=e.filter((i)=>i.size==="MAXI");if(maxiItems.length>0){let cheapest=Math.min(...maxiItems.map((i)=>i.price||0));cheapestMaxiPrice=cheapest;freeDiscount=cheapest;}}let loyaltyMsg=loyaltyEligible?`⭐ CARTE FIDELITE : 1 MAXI OFFERTE ! (-${freeDiscount.toFixed(2)}€ la moins chère)`:loyaltyCount>=12&&!isMonThu?`⭐ 12/12 - Revenez lun-jeu pour pizza gratuite (${loyaltyCount}/12 + ${freePizzas} offerte(s))`:hasFreeToken&&!isMonThu?`⭐ ${freePizzas} pizza(s) offerte(s) en attente - Revenez lun-jeu`:loyaltyCount>0||freePizzas>0?`⭐ ${loyaltyCount}/12 tampons - Encore ${12-loyaltyCount} MAXI${freePizzas>0?` • ${freePizzas} offerte(s) en attente`:``}`:"";let finalTotal=Math.max(0,l-freeDiscount);return p(_n,{children:[p("div",{className:"flex items-center justify-between mb-4",children:[y("h3",{className:"font-black text-lg",children:"Panier"}),p("span",{className:"text-xs bg-zinc-100 px-2 py-1 rounded-full font-bold",children:[e.reduce((i,a)=>i+a.qty,0)," pcs"]})]}),e.length===0?p("div",{className:"text-center py-10",children:[y("div",{className:"text-4xl mb-3",children:"\uD83C\uDF55"}),y("div",{className:"font-bold",children:"Votre panier est vide"}),y("div",{className:"text-sm text-zinc-500 mt-1",children:"Ajoutez une pizza, boisson ou dessert"})]}):p(_n,{children:[y("div",{className:"space-y-3 max-h-[40vh] overflow-auto pr-1",children:e.map((i)=>p("div",{className:"bg-zinc-50 rounded-2xl p-3 flex gap-3",children:[p("div",{className:"flex-1 min-w-0",children:[p("div",{className:"font-bold text-sm leading-tight flex items-center gap-2",children:[i.name,y("span",{className:`text-[10px] px-2 py-0.5 rounded-full font-black ${i.size==="SOLO"?"bg-[#2E7D32] text-white":"bg-[#D32F2F] text-white"}`,children:i.size})]}),y("div",{className:"text-[11px] text-zinc-600 line-clamp-2",children:i.ingredients}),p("div",{className:"text-xs font-bold mt-1",children:[i.price.toFixed(2),"€"]})]}),p("div",{className:"flex items-center gap-1",children:[y("button",{onClick:()=>n(i.uid,-1),className:"w-7 h-7 rounded-full bg-white border flex items-center justify-center font-bold",children:"−"}),y("span",{className:"w-6 text-center text-sm font-bold",children:i.qty}),y("button",{onClick:()=>n(i.uid,1),className:"w-7 h-7 rounded-full bg-zinc-900 text-white flex items-center justify-center font-bold",children:"+"})]})]},i.uid))}),p("div",{className:"mt-4 pt-4 border-t space-y-2 text-sm",children:[promoMsg&&p("div",{className:`rounded-[12px] px-3 py-2 text-[12px] font-bold text-center ${promoFree>0?"bg-[#2E7D32] text-white":"bg-[#FFF9DB] text-[#1e1e1e] border border-[#FBC02D]"}`,children:promoMsg}),loyaltyMsg&&p("div",{className:`rounded-[12px] px-3 py-2 text-[12px] font-bold text-center ${loyaltyEligible?"bg-[#FBC02D] text-[#1e1e1e] border-2 border-[#1e1e1e]":"bg-white border border-[#FBC02D]/50"}`,children:loyaltyMsg}),p("div",{className:"flex justify-between",children:[y("span",{className:"text-zinc-500",children:"Sous-total"}),p("span",{className:"font-bold",children:[t.toFixed(2),"€"]})]}),u==="Livraison"&&p("div",{className:"flex justify-between",children:[y("span",{className:"text-zinc-500",children:"Livraison"}),p("span",{className:"font-bold",children:[r.toFixed(2),"€"]})]}),p("div",{className:"flex justify-between font-black text-[16px]",children:[y("span",{children:"Total"}),p("span",{children:[l.toFixed(2),"€"]})]})]}),p("button",{onClick:o,className:"mt-4 w-full bg-zinc-900 text-white rounded-full py-3.5 font-bold hover:bg-black transition",children:["Commander • ",l.toFixed(2),"€"]})]})]})}pf.createRoot(document.getElementById("root")).render(y(df.default.StrictMode,{children:y(mi,{})}));
+</script>
+  <script>(function(){function m(a){var h=a.getAttribute("href");if(!h)return;try{var u=new URL(h,document.baseURI);if((u.protocol==="http:"||u.protocol==="https:")&&u.host!==location.host){a.target="_blank";a.rel="noopener noreferrer";}}catch(e){}}function s(){document.querySelectorAll("a[href]").forEach(m);}if(document.readyState!=="loading"){s();}else{document.addEventListener("DOMContentLoaded",s);}document.addEventListener("click",function(e){var a=e.target&&e.target.closest&&e.target.closest("a[href]");if(a){m(a);}},true);})();</script>
+<script>
+(function(){
+  function colorize(){
+    document.querySelectorAll('button').forEach(btn=>{
+      const t = (btn.textContent||'').trim().toLowerCase();
+      if(t==='tomate'){
+        const isActive = btn.className.includes('bg-[#D32F2F]') || btn.className.includes('bg-zinc-900') || btn.classList.contains('active') || btn.getAttribute('aria-selected')==='true' || btn.style.background.includes('211');
+        // check if selected by looking at parent state - if button has white text on dark, it's selected
+        const isSelected = btn.className.includes('text-white') && (btn.className.includes('bg-[') || btn.className.includes('bg-zinc'));
+        if(btn.className.includes('flex-1')){ // creer base buttons
+          if(isSelected || btn.className.includes('bg-[#D32F2F]') || btn.className.includes('bg-zinc-900')){
+            btn.style.background='#D32F2F'; btn.style.color='white'; btn.style.borderColor='#D32F2F'; btn.style.boxShadow='0 4px 12px rgba(211,47,47,0.3)';
+          } else {
+            btn.style.background='#FFEBEB'; btn.style.borderColor='#FFD5D5'; btn.style.color='#D32F2F';
+          }
+        }
+      }
+      if(t==='crème' || t==='creme'){
+        const isSelected = btn.className.includes('text-white') || btn.className.includes('bg-[#FBC02D]');
+        if(btn.className.includes('flex-1')){
+          if(btn.className.includes('bg-[#FBC02D]') || btn.className.includes('bg-zinc-900') || (btn.className.includes('text-white') && btn.className.includes('bg-'))){
+            btn.style.background='#FBC02D'; btn.style.color='#1e1e1e'; btn.style.borderColor='#FBC02D'; btn.style.boxShadow='0 4px 12px rgba(251,192,45,0.35)';
+          } else {
+            btn.style.background='#FFF9DB'; btn.style.borderColor='#FFEC99'; btn.style.color='#1e1e1e';
+          }
+        }
+      }
+      // ingredient categories
+      const cat = t;
+      if(['viandes','fromages','légumes','legumes','sauces','épicés','epices'].includes(cat)){
+        if(cat.includes('viande')){
+          btn.style.background='#FFEBEB'; btn.style.borderColor='#FFCDD2'; btn.style.color='#C62828';
+        } else if(cat.includes('fromage')){
+          btn.style.background='#FFF8E1'; btn.style.borderColor='#FFE082'; btn.style.color='#F57F17';
+        } else if(cat.includes('légume')||cat.includes('legume')){
+          btn.style.background='#E8F5E9'; btn.style.borderColor='#A5D6A7'; btn.style.color='#2E7D32';
+        } else if(cat.includes('sauce')){
+          btn.style.background='#E3F2FD'; btn.style.borderColor='#90CAF9'; btn.style.color='#1565C0';
+        } else if(cat.includes('épic')||cat.includes('epic')){
+          btn.style.background='#FFF3E0'; btn.style.borderColor='#FFCC80'; btn.style.color='#E65100';
+        }
+      }
+    });
+  }
+  setInterval(colorize, 500);
+  document.addEventListener('click', ()=>setTimeout(colorize, 50));
+})();
+</script>
+<!-- ACCOUNT PAGE - SAFE EXTERNAL IMPLEMENTATION -->
+<div id="nico-account-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:16px;">
+  <div style="background:white;border-radius:24px;width:100%;max-width:520px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <div style="padding:24px;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-weight:900;font-size:20px;display:flex;align-items:center;gap:8px;">👤 Mon Compte</div>
+        <div style="font-size:12px;color:#777;">Carte de fidélité & historique</div>
+      </div>
+      <button onclick="document.getElementById('nico-account-modal').style.display='none'" style="width:32px;height:32px;border-radius:50%;background:#f5f5f5;border:none;font-weight:bold;cursor:pointer;">×</button>
+    </div>
+    <div style="padding:24px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:24px;">
+      <div>
+        <div style="font-weight:bold;font-size:14px;margin-bottom:8px;">Votre numéro de téléphone</div>
+        <div style="display:flex;gap:8px;">
+          <input id="nico-account-phone" placeholder="06 12 34 56 78" style="flex:1;border:2px solid #e5e5e5;border-radius:9999px;padding:10px 16px;font-weight:bold;font-size:14px;outline:none;">
+          <button onclick="nicoAccountSavePhone()" style="background:#111;color:white;border:none;border-radius:9999px;padding:10px 20px;font-weight:bold;font-size:14px;cursor:pointer;">OK</button>
+        </div>
+        <div style="font-size:11px;color:#999;margin-top:4px;">Entrez le numéro utilisé pour vos commandes</div>
+      </div>
+      <div style="background:#FFF9DB;border:2px solid #FBC02D;border-radius:20px;padding:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <div style="font-weight:900;font-size:16px;display:flex;align-items:center;gap:8px;">⭐ Carte de Fidélité</div>
+          <div style="font-size:10px;background:#111;color:white;padding:4px 12px;border-radius:9999px;font-weight:900;">12 MAXI = 13ème OFFERTE</div>
+        </div>
+        <div id="nico-account-stamps" style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:16px;"></div>
+        <div id="nico-account-free" style="margin-bottom:16px;"></div><div id="nico-account-text" style="text-align:center;font-weight:bold;font-size:13px;color:#333;">Chargement...</div>
+        <div style="font-size:11px;color:#999;text-align:center;margin-top:8px;">Valable du lundi au jeudi • 1 pizza gratuite = 1 MAXI classique</div>
+      </div>
+      <div>
+        <div style="font-weight:bold;font-size:14px;margin-bottom:12px;display:flex;align-items:center;gap:8px;">📜 Historique <span id="nico-account-count" style="font-size:11px;background:#f5f5f5;padding:2px 8px;border-radius:9999px;"></span></div>
+        <div id="nico-account-orders" style="max-height:200px;overflow:auto;"></div>
+      </div>
+    </div>
+    <div style="padding:16px;border-top:1px solid #eee;background:#fafafa;display:flex;gap:8px;">
+      <button onclick="document.getElementById('nico-account-modal').style.display='none'" style="flex:1;background:#111;color:white;border:none;border-radius:9999px;padding:12px;font-weight:bold;font-size:14px;cursor:pointer;">Fermer</button>
+      <button onclick="document.getElementById('nico-account-modal').style.display='none';window.scrollTo(0,0)" style="flex:1;background:white;border:2px solid #e5e5e5;border-radius:9999px;padding:12px;font-weight:bold;font-size:14px;cursor:pointer;">Commander</button>
+    </div>
+  </div>
+</div>
+<script>
+function nicoAccountSavePhone(){
+  var input=document.getElementById('nico-account-phone');
+  var phone=input.value.replace(/\s+/g,'');
+  if(!phone){alert('Entrez votre numéro');return;}
+  localStorage.setItem('nico_last_phone',phone);
+  nicoAccountUpdate();
+  alert('Numéro enregistré : '+phone);
+}
+function nicoAccountUpdate(){
+  try{
+    var phoneInput=document.getElementById('nico-account-phone');
+    var lastPhone=localStorage.getItem('nico_last_phone')||'';
+    if(phoneInput && lastPhone && !phoneInput.value) phoneInput.value=lastPhone;
+    var phone=lastPhone;
+    if(phoneInput && phoneInput.value) phone=phoneInput.value.replace(/\s+/g,'');
+    var loyaltyKey=phone?'nico_loyalty_'+phone:null;
+    var count=0;
+    if(loyaltyKey) count=parseInt(localStorage.getItem(loyaltyKey)||'0');
+    var stampsContainer=document.getElementById('nico-account-stamps');
+    var textEl=document.getElementById('nico-account-text');
+    if(stampsContainer){
+      stampsContainer.innerHTML='';
+      for(var i=0;i<12;i++){
+        var div=document.createElement('div');
+        var filled=i<count;
+        div.style.cssText='height:48px;border-radius:14px;border:2px solid '+(filled?'#FBC02D':'#e5e5e5')+';display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900;font-size:13px;background:'+(filled?'#FBC02D':'white')+';color:'+(filled?'#1e1e1e':'#ccc')+';';
+        div.innerHTML=(filled?'✓<span style="font-size:9px;">MAXI</span>':(i+1));
+        stampsContainer.appendChild(div);
+      }
+    }
+    if(textEl){
+      var day=new Date().getDay();
+      var isMonThu=day>=1&&day<=4;
+      if(count>=12){
+        if(isMonThu){
+          textEl.textContent='🎉 12/12 - Votre 13ème MAXI est GRATUITE aujourd\'hui !';
+          textEl.style.color='#2E7D32';
+        }else{
+          textEl.textContent='🎉 12/12 - Revenez LUNDI à JEUDI pour pizza gratuite !';
+          textEl.style.color='#D32F2F';
+        }
+      }else{
+        textEl.textContent=count+' / 12 tampons - Encore '+(12-count)+' MAXI pour pizza OFFERTE';
+        textEl.style.color='#333';
+      }
+    }
+    var ordersContainer=document.getElementById('nico-account-orders');
+    var countEl=document.getElementById('nico-account-count');
+    if(ordersContainer){
+      var orders=[];
+      try{orders=JSON.parse(localStorage.getItem('nico_orders_demo')||'[]');}catch(e){}
+      if(countEl) countEl.textContent=orders.length+' commandes';
+      if(orders.length===0){
+        ordersContainer.innerHTML='<div style="text-align:center;padding:32px;background:#f9f9f9;border-radius:16px;"><div style="font-size:24px;margin-bottom:8px;">🍕</div><div style="font-weight:bold;font-size:14px;">Aucune commande</div><div style="font-size:11px;color:#999;">Vos commandes apparaîtront ici</div></div>';
+      }else{
+        var html='';
+        for(var j=0;j<Math.min(orders.length,10);j++){
+          var ord=orders[orders.length-1-j];
+          var itemsCount=(ord.items||[]).reduce(function(a,b){return a+(b.qty||0);},0);
           html+='<div style="background:#f9f9f9;border-radius:12px;padding:12px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div><div style="font-weight:bold;font-size:13px;">'+(ord.date||'')+' • '+(ord.time||'')+'</div><div style="font-size:11px;color:#777;">'+itemsCount+' pizzas • '+(ord.total?ord.total.toFixed(2):'?')+'€ • '+(ord.status||'Nouveau')+'</div></div><div style="font-size:10px;font-weight:bold;padding:4px 8px;background:white;border:1px solid #eee;border-radius:9999px;">'+(ord.type||'Retrait')+'</div></div>';
         }
         ordersContainer.innerHTML=html;
@@ -408,7 +557,7 @@ document.addEventListener('DOMContentLoaded',function(){
       acknowledgeAllNew();
     }
   });
-  console.log('🍕 Kitchen sound system loaded - will alert on new orders in  page');
+  console.log('🍕 Kitchen sound system loaded - will alert on new orders in ?cuisine page');
 })();
 </script>
 <div id="nico-static-menu" style="max-width:1200px;margin:32px auto;padding:0 16px;">
@@ -678,34 +827,15 @@ setInterval(nicoInjectAccountButton,2000);
 <div id="nico-custom-modal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px;">
   <div style="background:white;border-radius:24px;max-width:520px;width:100%;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.3);pointer-events:auto;">
     <div style="padding:20px 20px 12px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;">
-      <div>
-        <div style="display:flex;align-items:center;gap:8px;"><div id="nico-custom-title" style="font-weight:900;font-size:18px;line-height:1.2;">Pizza</div><div id="nico-custom-price-tag" style="font-size:11px;font-weight:900;background:#111;color:white;padding:4px 10px;border-radius:9999px;"></div></div>
-        <div id="nico-custom-base" style="font-size:11px;color:#888;margin-top:4px;"></div>
-      </div>
-      <button type="button" onclick="__nicoCloseCustomizer()" style="width:36px;height:36px;border-radius:50%;border:2px solid #eee;background:white;font-weight:900;cursor:pointer;pointer-events:auto;">✕</button>
+      <div><div style="display:flex;align-items:center;gap:8px;"><div id="nico-custom-title" style="font-weight:900;font-size:18px;line-height:1.2;">Pizza</div><div id="nico-custom-price-tag" style="font-size:11px;font-weight:900;background:#111;color:white;padding:4px 10px;border-radius:9999px;"></div></div><div id="nico-custom-base" style="font-size:11px;color:#888;margin-top:4px;"></div></div>
+      <button type="button" onclick="__nicoCloseCustomizer()" style="width:36px;height:36px;border-radius:50%;border:2px solid #eee;background:white;font-weight:900;cursor:pointer;">✕</button>
     </div>
-    <div style="overflow:auto;padding:16px;flex:1;pointer-events:auto;">
-      <div style="margin-bottom:16px;">
-        <div style="font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;color:#111;">🧩 Ingrédients de base - cliquez pour retirer (gratuit)</div>
-        <div id="nico-custom-ingredients" style="display:flex;flex-wrap:wrap;gap:6px;pointer-events:auto;"></div>
-      </div>
-      <div style="margin-bottom:12px;padding:10px;background:#f9f9f9;border-radius:12px;border:1px solid #eee;">
-        <div style="font-size:10px;font-weight:800;color:#888;text-transform:uppercase;">Aperçu final:</div>
-        <div id="nico-custom-preview" style="font-size:11px;color:#111;margin-top:4px;line-height:1.4;font-weight:600;"></div>
-      </div>
-      <div>
-        <div style="font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;color:#111;">➕ Ajouter des ingrédients (payant)</div>
-        <div id="nico-custom-extra" style="pointer-events:auto;"></div>
-      </div>
+    <div style="overflow:auto;padding:16px;flex:1;">
+      <div style="margin-bottom:16px;"><div style="font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;color:#111;">🧩 Ingrédients de base - cliquez pour retirer (gratuit)</div><div id="nico-custom-ingredients" style="display:flex;flex-wrap:wrap;gap:6px;"></div></div>
+      <div style="margin-bottom:12px;padding:10px;background:#f9f9f9;border-radius:12px;border:1px solid #eee;"><div style="font-size:10px;font-weight:800;color:#888;text-transform:uppercase;">Aperçu final:</div><div id="nico-custom-preview" style="font-size:11px;color:#111;margin-top:4px;line-height:1.4;font-weight:600;"></div></div>
+      <div><div style="font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;color:#111;">➕ Ajouter des ingrédients (payant)</div><div id="nico-custom-extra"></div></div>
     </div>
-    <div style="padding:16px;border-top:2px solid #111;display:flex;gap:10px;align-items:center;background:white;">
-      <div style="flex:1;">
-        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.5px;color:#888;font-weight:800;">Total</div>
-        <div id="nico-custom-total" style="font-weight:900;font-size:22px;">0€</div>
-      </div>
-      <button type="button" onclick="__nicoCloseCustomizer()" style="padding:12px 18px;border-radius:9999px;border:2px solid #111;background:white;font-weight:800;cursor:pointer;pointer-events:auto;">Annuler</button>
-      <button type="button" onclick="__nicoConfirmCustomizer()" style="padding:12px 20px;border-radius:9999px;border:none;background:#111;color:white;font-weight:900;cursor:pointer;display:flex;align-items:center;gap:8px;pointer-events:auto;">Ajouter au panier 🛒</button>
-    </div>
+    <div style="padding:16px;border-top:2px solid #111;display:flex;gap:10px;align-items:center;background:white;"><div style="flex:1;"><div style="font-size:10px;text-transform:uppercase;letter-spacing:0.5px;color:#888;font-weight:800;">Total</div><div id="nico-custom-total" style="font-weight:900;font-size:22px;">0€</div></div><button type="button" onclick="__nicoCloseCustomizer()" style="padding:12px 18px;border-radius:9999px;border:2px solid #111;background:white;font-weight:800;cursor:pointer;">Annuler</button><button type="button" onclick="__nicoConfirmCustomizer()" style="padding:12px 20px;border-radius:9999px;border:none;background:#111;color:white;font-weight:900;cursor:pointer;">Ajouter au panier 🛒</button></div>
   </div>
 </div>
 
@@ -718,106 +848,65 @@ setInterval(nicoInjectAccountButton,2000);
     {name:"Fromages",price:1.5,color:"#FFF8E1",border:"#F9A825",text:"#F57F17",items:["Mozzarella","Emmental","Fromage de chèvre","Brie","Reblochon","Raclette","Munster","Cheddar"]},
     {name:"Sauces",price:1,color:"#F3E5F5",border:"#7B1FA2",text:"#4A148C",items:["Sauce burger","Sauce barbecue","Sauce curry","Sauce piment","Miel de fleurs","Huile d'olive"]}
   ];
-  const ingToCat = new Map();
-  EXTRA_CATS.forEach(c=>c.items.forEach(it=>ingToCat.set(it.toLowerCase(), c)));
-  let curPizza=null, curSize=null;
-  let removed=new Set();
-  let added=new Map();
+  const ingToCat = new Map(); EXTRA_CATS.forEach(c=>c.items.forEach(it=>ingToCat.set(it.toLowerCase(), c)));
+  let curPizza=null, curSize=null; let removed=new Set(); let added=new Map();
   function parseIngredients(str){ return str.split(',').map(s=>s.trim()).filter(Boolean); }
-  function getCatForIng(ing){
-    const lower=ing.toLowerCase();
-    return ingToCat.get(lower) || {color:"#F5F5F5",border:"#222",text:"#111"};
-  }
+  function getCatForIng(ing){ return ingToCat.get(ing.toLowerCase()) || {color:"#F5F5F5",border:"#222",text:"#111"}; }
   function render(){
     if(!curPizza) return;
     const ings = parseIngredients(curPizza.ingredients);
     const ingContainer = document.getElementById('nico-custom-ingredients');
-    if(!ingContainer) return;
-    ingContainer.innerHTML='';
+    if(!ingContainer) return; ingContainer.innerHTML='';
     ings.forEach(ing=>{
-      const cat = getCatForIng(ing);
-      const isRemoved = removed.has(ing.toLowerCase());
-      const chip = document.createElement('button');
-      chip.type='button';
-      chip.style.cssText = `display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:9999px;border:2px solid ${isRemoved?'#ccc':cat.border};background:${isRemoved?'#f0f0f0':cat.color};color:${isRemoved?'#999':cat.text};font-size:12px;font-weight:800;cursor:pointer;transition:all 0.15s;${isRemoved?'text-decoration:line-through;opacity:0.6;':''};pointer-events:auto;`;
+      const cat = getCatForIng(ing); const isRemoved = removed.has(ing.toLowerCase());
+      const chip = document.createElement('button'); chip.type='button';
+      chip.style.cssText = "display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:9999px;border:2px solid "+(isRemoved?'#ccc':cat.border)+";background:"+(isRemoved?'#f0f0f0':cat.color)+";color:"+(isRemoved?'#999':cat.text)+";font-size:12px;font-weight:800;cursor:pointer;";
       chip.innerHTML = (isRemoved?'➕ ':'✕ ') + ing;
-      chip.onclick = (e)=>{ e.preventDefault(); e.stopPropagation(); const key=ing.toLowerCase(); if(removed.has(key)) removed.delete(key); else removed.add(key); render(); };
+      chip.onclick = function(e){ e.preventDefault(); e.stopPropagation(); const key=ing.toLowerCase(); if(removed.has(key)) removed.delete(key); else removed.add(key); render(); };
       ingContainer.appendChild(chip);
     });
     const extraContainer=document.getElementById('nico-custom-extra');
-    if(extraContainer){
-      extraContainer.innerHTML='';
-      EXTRA_CATS.forEach(cat=>{
-        const gridItems = cat.items.filter(item=>{
-          const lower=item.toLowerCase();
-          const inBase = ings.some(i=>i.toLowerCase()===lower);
-          return !(inBase && !removed.has(lower));
-        });
-        if(gridItems.length===0) return;
-        const catDiv=document.createElement('div');
-        catDiv.style.marginBottom='14px';
-        catDiv.innerHTML=`<div style="font-weight:900;font-size:11px;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.6px;color:${cat.text};display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:${cat.border};display:inline-block;"></span>${cat.name} +${cat.price.toFixed(2)}€</div>`;
-        const grid=document.createElement('div');
-        grid.style.cssText='display:flex;flex-wrap:wrap;gap:6px;';
-        gridItems.forEach(item=>{
-          const lower=item.toLowerCase();
-          const isAdded = added.has(lower);
-          const btn=document.createElement('button');
-          btn.type='button';
-          btn.style.cssText=`padding:7px 12px;border-radius:9999px;border:2px solid ${isAdded?cat.border:'#e5e5e5'};background:${isAdded?cat.border:'white'};color:${isAdded?'white':cat.text};font-size:11px;font-weight:800;cursor:pointer;transition:all 0.15s;pointer-events:auto;`;
-          btn.textContent=(isAdded?'✓ ':'+ ')+item;
-          btn.onclick=(e)=>{ e.preventDefault(); e.stopPropagation(); if(added.has(lower)) added.delete(lower); else added.set(lower,{name:item, price:cat.price}); renderPrice(); const nowAdded=added.has(lower); btn.style.background=nowAdded?cat.border:'white'; btn.style.color=nowAdded?'white':cat.text; btn.style.borderColor=nowAdded?cat.border:'#e5e5e5'; btn.textContent=(nowAdded?'✓ ':'+ ')+item; };
-          grid.appendChild(btn);
-        });
-        catDiv.appendChild(grid);
-        extraContainer.appendChild(catDiv);
+    if(extraContainer){ extraContainer.innerHTML=''; EXTRA_CATS.forEach(function(cat){
+      const gridItems = cat.items.filter(function(item){ const lower=item.toLowerCase(); const inBase = ings.some(function(i){return i.toLowerCase()===lower;}); return !(inBase && !removed.has(lower)); });
+      if(gridItems.length===0) return;
+      const catDiv=document.createElement('div'); catDiv.style.marginBottom='14px';
+      catDiv.innerHTML='<div style="font-weight:900;font-size:11px;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.6px;color:'+cat.text+';display:flex;align-items:center;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:'+cat.border+';display:inline-block;"></span>'+cat.name+' +'+cat.price.toFixed(2)+'€</div>';
+      const grid=document.createElement('div'); grid.style.cssText='display:flex;flex-wrap:wrap;gap:6px;';
+      gridItems.forEach(function(item){
+        const lower=item.toLowerCase(); const isAdded = added.has(lower);
+        const btn=document.createElement('button'); btn.type='button';
+        btn.style.cssText='padding:7px 12px;border-radius:9999px;border:2px solid '+(isAdded?cat.border:'#e5e5e5')+';background:'+(isAdded?cat.border:'white')+';color:'+(isAdded?'white':cat.text)+';font-size:11px;font-weight:800;cursor:pointer;';
+        btn.textContent=(isAdded?'✓ ':'+ ')+item;
+        btn.onclick=function(e){ e.preventDefault(); e.stopPropagation(); if(added.has(lower)) added.delete(lower); else added.set(lower,{name:item, price:cat.price}); renderPrice(); const nowAdded=added.has(lower); btn.style.background=nowAdded?cat.border:'white'; btn.style.color=nowAdded?'white':cat.text; btn.style.borderColor=nowAdded?cat.border:'#e5e5e5'; btn.textContent=(nowAdded?'✓ ':'+ ')+item; };
+        grid.appendChild(btn);
       });
-    }
+      catDiv.appendChild(grid); extraContainer.appendChild(catDiv);
+    }); }
     renderPrice();
   }
   function renderPrice(){
-    if(!curPizza) return;
-    let basePrice = curSize==='SOLO'? curPizza.priceSolo : curPizza.priceMaxi;
-    let extra=0; added.forEach(v=>extra+=v.price);
+    if(!curPizza) return; let basePrice = curSize==='SOLO'? curPizza.priceSolo : curPizza.priceMaxi; let extra=0; added.forEach(function(v){extra+=v.price;});
     const total = basePrice + extra;
-    const totalEl=document.getElementById('nico-custom-total');
-    const preview=document.getElementById('nico-custom-preview');
+    const totalEl=document.getElementById('nico-custom-total'); const preview=document.getElementById('nico-custom-preview');
     if(totalEl) totalEl.textContent = total.toFixed(2)+'€';
-    if(preview){
-      const ings = parseIngredients(curPizza.ingredients);
-      let finalIngs = ings.filter(i=>!removed.has(i.toLowerCase()));
-      added.forEach(v=>finalIngs.push(v.name));
-      let txt = finalIngs.join(', ');
-      if(removed.size>0) txt += ' | SANS: ' + Array.from(removed).join(', ');
-      if(added.size>0) txt += ' | EXTRA: ' + Array.from(added.values()).map(v=>v.name).join(', ') + ' (+'+extra.toFixed(2)+'€)';
-      preview.textContent = txt || 'Aucun ingrédient';
-    }
+    if(preview){ const ings = parseIngredients(curPizza.ingredients); let finalIngs = ings.filter(function(i){return !removed.has(i.toLowerCase());}); added.forEach(function(v){finalIngs.push(v.name);}); let txt = finalIngs.join(', '); if(removed.size>0) txt += ' | SANS: ' + Array.from(removed).join(', '); if(added.size>0) txt += ' | EXTRA: ' + Array.from(added.values()).map(function(v){return v.name;}).join(', ') + ' (+'+extra.toFixed(2)+'€)'; preview.textContent = txt || 'Aucun ingrédient'; }
   }
   window.__nicoOpenCustomizer = function(pizzaObj, size){
     curPizza = pizzaObj; curSize = size; removed = new Set(); added = new Map();
-    const modal = document.getElementById('nico-custom-modal');
-    if(!modal) return;
+    const modal = document.getElementById('nico-custom-modal'); if(!modal) return;
     const basePrice = size==='SOLO'? pizzaObj.priceSolo : pizzaObj.priceMaxi;
     document.getElementById('nico-custom-title').textContent = pizzaObj.name + ' - ' + size;
     document.getElementById('nico-custom-price-tag').textContent = basePrice.toFixed(2)+'€';
     document.getElementById('nico-custom-base').textContent = 'Base ' + pizzaObj.base + ' • ' + pizzaObj.ingredients;
-    modal.style.display='flex';
-    document.body.style.overflow='hidden';
-    render();
+    modal.style.display='flex'; document.body.style.overflow='hidden'; render();
   };
   window.__nicoCloseCustomizer = function(){ const m=document.getElementById('nico-custom-modal'); if(m) m.style.display='none'; document.body.style.overflow=''; };
   window.__nicoConfirmCustomizer = function(){
-    if(!curPizza) return;
-    const ings = parseIngredients(curPizza.ingredients);
-    let finalIngs = ings.filter(i=>!removed.has(i.toLowerCase()));
-    let extraPrice=0; added.forEach(v=>{finalIngs.push(v.name); extraPrice+=v.price;});
-    let basePrice = curSize==='SOLO'? curPizza.priceSolo : curPizza.priceMaxi;
-    let finalPrice = basePrice + extraPrice;
-    let finalIngredients = finalIngs.join(', ');
-    if(removed.size>0) finalIngredients += ' (SANS ' + Array.from(removed).join(', ') + ')';
+    if(!curPizza) return; const ings = parseIngredients(curPizza.ingredients); let finalIngs = ings.filter(function(i){return !removed.has(i.toLowerCase());}); let extraPrice=0; added.forEach(function(v){finalIngs.push(v.name); extraPrice+=v.price;});
+    let basePrice = curSize==='SOLO'? curPizza.priceSolo : curPizza.priceMaxi; let finalPrice = basePrice + extraPrice;
+    let finalIngredients = finalIngs.join(', '); if(removed.size>0) finalIngredients += ' (SANS ' + Array.from(removed).join(', ') + ')';
     const cartObj = {name:curPizza.name, base:curPizza.base, size:curSize, ingredients:finalIngredients, originalIngredients:curPizza.ingredients, removed:Array.from(removed), added:Array.from(added.values()), price:finalPrice, basePrice:basePrice};
-    try{ if(window.nicoAddToCart) window.nicoAddToCart(cartObj); else if(window._nicoRealAdd) window._nicoRealAdd(cartObj); }catch(e){console.error(e);}
-    window.__nicoCloseCustomizer();
+    try{ if(window.nicoAddToCart) window.nicoAddToCart(cartObj); else if(window._nicoRealAdd) window._nicoRealAdd(cartObj); }catch(e){console.error(e);} window.__nicoCloseCustomizer();
   };
   document.addEventListener('click', function(e){ const modal=document.getElementById('nico-custom-modal'); if(e.target===modal) window.__nicoCloseCustomizer(); });
 })();
