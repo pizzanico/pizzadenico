@@ -654,8 +654,7 @@ function nicoToast(msg, isFree){
   setTimeout(function(){ t.style.opacity='0'; t.style.transition='opacity 0.3s'; setTimeout(function(){ t.remove(); },300); }, 2500);
 }
 </script>
-<!-- ADMIN REMOVED --><!-- NICO EMAIL OTP - FAKE DISABLED FOR TESTING -->
-<script>window.nicoOpenVerify=function(fn){localStorage.setItem("nico_verified_email","test@test.com");localStorage.setItem("nico_verified_phone","test@test.com");localStorage.setItem("nico_verified_at",Date.now().toString());if(fn)fn();}; console.log("VERIFICATION DISABLED - FAKE MODE");</script>
+
 
 <script>
 (function(){ function upd(){ try{ var merci=document.body.innerText.indexOf('envoyée en cuisine')>-1; var sm=document.getElementById('nico-static-menu'); if(sm) sm.style.display=merci?'none':'block'; }catch(e){} } setInterval(upd,800); })();
@@ -911,5 +910,189 @@ setInterval(nicoInjectAccountButton,2000);
   document.addEventListener('click', function(e){ const modal=document.getElementById('nico-custom-modal'); if(e.target===modal) window.__nicoCloseCustomizer(); });
 })();
 </script>
+
+<!-- NICO EMAIL OTP VERIFICATION - NO FIREBASE -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init("iRPTc83yYbwRFvqZ8");</script>
+
+<div id="nico-verify-modal" style="display:none;position:fixed;inset:0;z-index:200000;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:16px;">
+  <div style="background:white;border-radius:24px;width:100%;max-width:420px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+    <div style="text-align:center;margin-bottom:18px;">
+      <div style="width:56px;height:56px;background:#2E7D32;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:28px;">📧</div>
+      <div style="font-weight:900;font-size:20px;">Vérifiez votre email</div>
+      <div style="font-size:13px;color:#666;margin-top:4px;">Pour éviter les fausses commandes, confirmez votre email</div>
+    </div>
+    <div id="nico-verify-step1">
+      <div style="font-weight:700;font-size:13px;margin-bottom:8px;">Votre email</div>
+      <input id="nico-verify-email" type="email" placeholder="votre@email.com" style="width:100%;border:2px solid #111;border-radius:9999px;padding:12px 16px;font-weight:700;font-size:15px;outline:none;box-sizing:border-box;">
+      <button id="nico-send-code-btn" onclick="nicoSendEmailCode()" style="margin-top:14px;width:100%;background:#111;color:white;border:none;border-radius:9999px;padding:14px;font-weight:900;font-size:15px;cursor:pointer;">📤 Envoyer le code</button>
+      <div id="nico-verify-status" style="font-size:11px;color:#999;text-align:center;margin-top:10px;"></div>
+    </div>
+    <div id="nico-verify-step2" style="display:none;">
+      <div style="font-weight:700;font-size:13px;margin-bottom:8px;">Code reçu par email</div>
+      <div style="font-size:11px;color:#666;margin-bottom:8px;">Envoyé à <b id="nico-verify-email-display"></b> • Valable 5 min</div>
+      <input id="nico-verify-code" type="text" inputmode="numeric" maxlength="6" placeholder="123456" style="width:100%;border:2px solid #111;border-radius:9999px;padding:14px 16px;font-weight:900;font-size:22px;letter-spacing:8px;text-align:center;outline:none;box-sizing:border-box;">
+      <div id="nico-verify-timer" style="text-align:center;margin-top:8px;font-weight:900;color:#D32F2F;font-size:13px;">05:00</div>
+      <button id="nico-confirm-code-btn" onclick="nicoConfirmEmailCode()" style="margin-top:14px;width:100%;background:#2E7D32;color:white;border:none;border-radius:9999px;padding:14px;font-weight:900;font-size:15px;cursor:pointer;">✅ Confirmer</button>
+      <button onclick="nicoBackToStep1()" style="margin-top:8px;width:100%;background:white;border:2px solid #e5e5e5;border-radius:9999px;padding:10px;font-weight:700;font-size:13px;cursor:pointer;">← Changer d'email</button>
+      <div id="nico-verify-status2" style="font-size:12px;text-align:center;margin-top:10px;color:#D32F2F;font-weight:700;"></div>
+    </div>
+    <div id="nico-verify-step3" style="display:none;text-align:center;">
+      <div style="font-size:48px;">✅</div>
+      <div style="font-weight:900;font-size:18px;margin-top:8px;color:#2E7D32;">Email vérifié !</div>
+      <div id="nico-verified-email-display" style="font-size:13px;color:#666;margin-top:4px;"></div>
+      <button onclick="nicoCloseVerify()" style="margin-top:16px;width:100%;background:#111;color:white;border:none;border-radius:9999px;padding:14px;font-weight:900;font-size:15px;cursor:pointer;">Continuer la commande →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let nicoEmailCode=null;
+let nicoEmailAttempts=0;
+let nicoCountdown=null;
+window.nicoVerifiedEmail=null;
+window.nicoIsEmailVerified=false;
+window.nicoPendingCheckout=null;
+
+function nicoStartTimer(){
+  let left=300;
+  clearInterval(nicoCountdown);
+  const el=document.getElementById('nico-verify-timer');
+  nicoCountdown=setInterval(()=>{
+    left--;
+    const m=String(Math.floor(left/60)).padStart(2,'0');
+    const s=String(left%60).padStart(2,'0');
+    if(el) el.textContent=m+':'+s;
+    if(left<=0){
+      clearInterval(nicoCountdown);
+      document.getElementById('nico-verify-status2').textContent='⏰ Code expiré, renvoyez.';
+      nicoBackToStep1();
+    }
+  },1000);
+}
+
+window.nicoSendEmailCode=async function(){
+  const emailEl=document.getElementById('nico-verify-email');
+  const statusEl=document.getElementById('nico-verify-status');
+  const btn=document.getElementById('nico-send-code-btn');
+  let email=emailEl.value.trim();
+  if(!email || !email.includes('@')){ statusEl.textContent='❌ Email invalide'; return; }
+  nicoEmailCode=Math.floor(100000+Math.random()*900000).toString();
+  console.log('EMAIL CODE:', nicoEmailCode);
+  const validTill=new Date(Date.now()+5*60000).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  btn.textContent='⏳ Envoi...'; btn.disabled=true; statusEl.textContent='';
+  try{
+    await emailjs.send("service_75fafuo", "template_auanfi8", {email: email, passcode: nicoEmailCode, time: validTill});
+    localStorage.setItem('nico_email_code', nicoEmailCode);
+    localStorage.setItem('nico_email', email);
+    localStorage.setItem('nico_email_expires', (Date.now()+5*60000).toString());
+    document.getElementById('nico-verify-step1').style.display='none';
+    document.getElementById('nico-verify-step2').style.display='block';
+    document.getElementById('nico-verify-email-display').textContent=email;
+    document.getElementById('nico-verify-status2').textContent='✅ Code envoyé';
+    nicoStartTimer();
+    setTimeout(()=>document.getElementById('nico-verify-code').focus(),300);
+  }catch(e){
+    console.error(e);
+    // fallback - allow code in console for testing
+    document.getElementById('nico-verify-step1').style.display='none';
+    document.getElementById('nico-verify-step2').style.display='block';
+    document.getElementById('nico-verify-email-display').textContent=email;
+    document.getElementById('nico-verify-status2').innerHTML='⚠️ Mode test - code: <b style="font-size:18px">'+nicoEmailCode+'</b><br><small>Vérifiez EmailJS quota</small>';
+    document.getElementById('nico-verify-status2').style.color='#111';
+    localStorage.setItem('nico_email_code', nicoEmailCode);
+    localStorage.setItem('nico_email', email);
+    localStorage.setItem('nico_email_expires', (Date.now()+5*60000).toString());
+    nicoStartTimer();
+  }finally{
+    btn.textContent='📤 Envoyer le code';
+    btn.disabled=false;
+  }
+};
+
+window.nicoConfirmEmailCode=function(){
+  const codeEl=document.getElementById('nico-verify-code');
+  const errEl=document.getElementById('nico-verify-status2');
+  const entered=codeEl.value.trim();
+  const saved=localStorage.getItem('nico_email_code')||nicoEmailCode;
+  const expires=parseInt(localStorage.getItem('nico_email_expires')||'0');
+  if(!entered || entered.length!=6){ errEl.textContent='Code à 6 chiffres'; return; }
+  if(Date.now()>expires){ errEl.textContent='⏰ Code expiré'; nicoBackToStep1(); return; }
+  if(entered===saved){
+    clearInterval(nicoCountdown);
+    const email=localStorage.getItem('nico_email')||document.getElementById('nico-verify-email').value.trim();
+    localStorage.setItem('nico_verified_email', email);
+    localStorage.setItem('nico_verified_at', Date.now().toString());
+    window.nicoVerifiedEmail=email;
+    window.nicoIsEmailVerified=true;
+    document.getElementById('nico-verify-step2').style.display='none';
+    document.getElementById('nico-verify-step3').style.display='block';
+    document.getElementById('nico-verified-email-display').textContent=email+' vérifié ✓';
+    setTimeout(()=>nicoCloseVerify(),1200);
+  }else{
+    nicoEmailAttempts++;
+    errEl.textContent='❌ Code faux (essai '+nicoEmailAttempts+')';
+    codeEl.value=''; codeEl.focus();
+  }
+};
+
+window.nicoBackToStep1=function(){
+  clearInterval(nicoCountdown);
+  document.getElementById('nico-verify-step2').style.display='none';
+  document.getElementById('nico-verify-step1').style.display='block';
+  document.getElementById('nico-verify-status').textContent='';
+};
+
+window.nicoCloseVerify=function(){
+  document.getElementById('nico-verify-modal').style.display='none';
+  const email=window.nicoVerifiedEmail||localStorage.getItem('nico_verified_email')||'';
+  if(email){
+    document.querySelectorAll('input[type="email"]').forEach(f=>{ if(!f.value) { f.value=email; f.dispatchEvent(new Event('input',{bubbles:true})); }});
+  }
+  if(window.nicoPendingCheckout){
+    const fn=window.nicoPendingCheckout; window.nicoPendingCheckout=null;
+    setTimeout(()=>fn(),400);
+  }
+};
+
+window.nicoOpenVerify=function(cb){
+  const at=parseInt(localStorage.getItem('nico_verified_at')||'0');
+  const ok=Date.now()-at<24*60*60*1000;
+  const ve=localStorage.getItem('nico_verified_email');
+  if(ve && ok){ window.nicoVerifiedEmail=ve; window.nicoIsEmailVerified=true; if(cb) cb(); return; }
+  if(cb) window.nicoPendingCheckout=cb;
+  document.getElementById('nico-verify-modal').style.display='flex';
+  document.getElementById('nico-verify-step1').style.display='block';
+  document.getElementById('nico-verify-step2').style.display='none';
+  document.getElementById('nico-verify-step3').style.display='none';
+  const last=localStorage.getItem('nico_verified_email')||'';
+  if(last) document.getElementById('nico-verify-email').value=last;
+};
+
+(function(){
+  setInterval(()=>{
+    document.querySelectorAll('button').forEach(b=>{
+      if(!/Commander|Valider|Payer/.test(b.textContent)) return;
+      if(b.dataset.emailVerify) return;
+      b.dataset.emailVerify='1';
+      b.addEventListener('click', e=>{
+        const at=parseInt(localStorage.getItem('nico_verified_at')||'0');
+        const ok=Date.now()-at<24*60*60*1000;
+        const ve=localStorage.getItem('nico_verified_email');
+        if(!ve || !ok){
+          e.preventDefault(); e.stopImmediatePropagation();
+          window.nicoOpenVerify(()=>{
+            const h=b.dataset.emailVerify; delete b.dataset.emailVerify;
+            setTimeout(()=>{ b.click(); b.dataset.emailVerify=h; },300);
+          });
+          return false;
+        }
+      }, true);
+    });
+  }, 1000);
+  console.log('✅ Email verification active - No Firebase');
+})();
+</script>
+<!-- END EMAIL VERIFICATION -->
 </body>
 </html>
